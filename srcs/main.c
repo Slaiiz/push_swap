@@ -1,11 +1,11 @@
 #include "push_swap.h"
 
-static int	initialize_stacks(t_stack *a, t_stack *b, char **argv[])
+static int	initialize_stacks(t_couple *c, char **argv[])
 {
 	int		n;
 	char	*s;
 
-	ft_bzero(a, sizeof(a));
+	ft_bzero(c, sizeof(*c));
 	while (*(*argv)++)
 	{
 		s = **argv;
@@ -15,10 +15,19 @@ static int	initialize_stacks(t_stack *a, t_stack *b, char **argv[])
 			s++;
 		if (*s != '\0')
 			return (0);
-		if (!stack_push(a, n))
+		if (!stack_push(&c->a, n))
 			return (0);
 	}
-	ft_bzero(b, sizeof(b));
+}
+
+static int	sort_stacks(t_couple *couple, int flags)
+{
+	
+}
+
+static int	print_stacks(t_couple *couple, int flags)
+{
+
 }
 
 static void	parse_flags(int *in, char **argv[])
@@ -45,9 +54,8 @@ static void	parse_flags(int *in, char **argv[])
 
 int			main(int argc, char *argv[])
 {
-	int		flags;
-	t_stack	a;
-	t_stack	b;
+	int			flags;
+	t_couple	couple;
 
 	if (argc < 2)
 	{
@@ -55,14 +63,15 @@ int			main(int argc, char *argv[])
 		return (1);
 	}
 	parse_flags(&flags, &argv);
-	if (!initialize_stacks(&a, &b, &argv))
+	if (!initialize_stacks(&couple, &argv))
 	{
 		ft_printf("#!fd=2^Error\n");
 		return (2);
 	}
-	if (!sort_stacks(&a, &b, flags))
+	if (!sort_stacks(&couple, flags))
 	{
 		ft_printf("#!fd=2^Error\n");
 		return (4);
 	}
+	print_stacks(&couple, flags);
 }

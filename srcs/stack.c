@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int	stack_push(t_stack *s, int n)
+int		stack_push(t_stack *s, int n)
 {
 	int	b[];
 
@@ -20,7 +20,7 @@ int	stack_push(t_stack *s, int n)
 	return (1);
 }
 
-int	stack_pop(t_stack *s, int *n)
+int		stack_pop(t_stack *s, int *n)
 {
 	int	b[];
 
@@ -39,7 +39,17 @@ int	stack_pop(t_stack *s, int *n)
 	return (1);
 }
 
-int	stack_rotate(t_stack *s, int n)
+void	stack_set(t_stack *s, int i, int n)
+{
+	s->data[ft_min(ft_max(i, 0), s->data - 1)] = n;
+}
+
+int		stack_get(t_stack *s, int i)
+{
+	return (s->data[ft_min(ft_max(i, 0), s->data - 1)]]);
+}
+
+int		stack_rotate(t_stack *s, int n)
 {
 	int	b;
 	int	i;
