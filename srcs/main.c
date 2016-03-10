@@ -20,14 +20,32 @@ static int	initialize_stacks(t_couple *c, char **argv[])
 	}
 }
 
-static int	sort_stacks(t_couple *couple, int flags)
+static int	sort_stacks(t_couple *c, int flags)
 {
-	
+	if (!__push(c, O_PB)
+		|| __push(c, O_PB)
+		|| __push(c, O_PB)
+		|| __push(c, O_PB))
+		return (0);
+	return (1);
 }
 
-static int	print_stacks(t_couple *couple, int flags)
+static int	print_stacks(t_couple *c, int flags)
 {
+	static char	*strings[11];
 
+	strings[0]  = "SA";
+	strings[1]  = "SB";
+	strings[2]  = "SS";
+	strings[3]  = "PA";
+	strings[4]  = "PB";
+	strings[5]  = "RA";
+	strings[6]  = "RB";
+	strings[7]  = "RR";
+	strings[8]  = "RRA";
+	strings[9]  = "RRB";
+	strings[10] = "RRR";
+	return (1);
 }
 
 static void	parse_flags(int *in, char **argv[])
@@ -54,8 +72,8 @@ static void	parse_flags(int *in, char **argv[])
 
 int			main(int argc, char *argv[])
 {
+	t_couple	c;
 	int			flags;
-	t_couple	couple;
 
 	if (argc < 2)
 	{
@@ -63,15 +81,15 @@ int			main(int argc, char *argv[])
 		return (1);
 	}
 	parse_flags(&flags, &argv);
-	if (!initialize_stacks(&couple, &argv))
+	if (!initialize_stacks(&c, &argv))
 	{
 		ft_printf("#!fd=2^Error\n");
 		return (2);
 	}
-	if (!sort_stacks(&couple, flags))
+	if (!sort_stacks(&c, flags))
 	{
 		ft_printf("#!fd=2^Error\n");
 		return (4);
 	}
-	print_stacks(&couple, flags);
+	print_stacks(&c, flags);
 }

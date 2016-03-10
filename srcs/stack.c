@@ -6,7 +6,7 @@ int		stack_push(t_stack *s, int n)
 
 	if (s->size < (s->len + 1))
 	{
-		if ((b = malloc(sizeof(int) * (s->size + STACK_INC_FACTOR))) == NULL)
+		if ((b = malloc(sizeof(int) * (s->size + INC_FACTOR))) == NULL)
 			return (0);
 		if (in->data != NULL)
 		{
@@ -29,7 +29,7 @@ int		stack_pop(t_stack *s, int *n)
 	*n = s->data[--s->len];
 	if (s->size - s->len >= STACK_INC_FACTOR)
 	{
-		if ((b = malloc(sizeof(int) * (s->size - STACK_INC_FACTOR))) == NULL)
+		if ((b = malloc(sizeof(int) * (s->size - INC_FACTOR))) == NULL)
 			return (0);
 		ft_memcpy(b, in->data, in->len);
 		free(in->data);

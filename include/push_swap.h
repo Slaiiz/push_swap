@@ -23,7 +23,7 @@
 
 # define O_SA				 1
 # define O_SB				 2
-# define O_SS				 3
+# define O_SS				 4
 # define O_PA				 4
 # define O_PB				 5
 # define O_RA				 6
@@ -35,6 +35,11 @@
 
 # define A					 1
 # define B					 2
+# define S					 3
+# define R					 S
+
+# define FORWARD			 1
+# define REVERSE			-1
 
 typedef struct	s_stack
 {
