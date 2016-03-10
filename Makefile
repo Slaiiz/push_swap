@@ -1,9 +1,11 @@
 CC     =	gcc
-CFLAGS =	-Wall -Wextra -Werror
+#CFLAGS =	-Wall -Wextra -Werror
 NAME   =	push_swap
-SRCS   =	main.c
+SRCS   =	main.c stack.c operations.c
 
 # -----------------------------
+
+vpath libft.a libft
 
 help:
 	@echo "\033[33;41mAvailable rules:\033[0m\n\
@@ -18,15 +20,16 @@ all: libft.a $(NAME)
 
 libft.a:
 	make -C libft re;\
-	mv libft/libft.a .
 
 $(NAME):
 	cd srcs;\
-	$(CC) $(CFLAGS) -o ../$(NAME) -I include -I libft/include $(SRCS) libft.a
+	$(CC) $(CFLAGS) -o ../$(NAME) -I ../include -I ../libft/includes $(SRCS) ../libft/libft.a
 
 clean:
+	make -C libft clean
 
 fclean: clean
+	make -C libft fclean;\
 	rm -f $(NAME)
 
 re: fclean all

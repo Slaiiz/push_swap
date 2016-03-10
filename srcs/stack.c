@@ -1,52 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/10 16:35:06 by vchesnea          #+#    #+#             */
+/*   Updated: 2016/03/10 16:35:08 by vchesnea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int		stack_push(t_stack *s, int n)
 {
-	int	b[];
+	int	*b;
 
 	if (s->size < (s->len + 1))
 	{
 		if ((b = malloc(sizeof(int) * (s->size + INC_FACTOR))) == NULL)
-			return (0);
-		if (in->data != NULL)
 		{
-			ft_memcpy(b, in->data, in->len);
-			free(in->data);
+			print_error(ERR_MALLOC);
+			return (1);
 		}
-		in->size += STACK_INC_FACTOR;
-		in->data = b;
+		if (s->data != NULL)
+		{
+			ft_memcpy(b, s->data, s->len);
+			free(s->data);
+		}
+		s->size += INC_FACTOR;
+		s->data = b;
 	}
-	in->data[in->len++] = n;
-	return (1);
+	s->data[s->len++] = n;
+	return (0);
 }
 
 int		stack_pop(t_stack *s, int *n)
 {
-	int	b[];
+	int	*b;
 
 	if (s->len < 1)
-		return (0);
+	{
+		print_error(ERR_BADLEN);
+		return (1);
+	}
 	*n = s->data[--s->len];
-	if (s->size - s->len >= STACK_INC_FACTOR)
+	if (s->size - s->len >= INC_FACTOR)
 	{
 		if ((b = malloc(sizeof(int) * (s->size - INC_FACTOR))) == NULL)
-			return (0);
-		ft_memcpy(b, in->data, in->len);
-		free(in->data);
+		{
+			print_error(ERR_MALLOC);
+			return (1);
+		}
+		ft_memcpy(b, s->data, s->len);
+		s->size -= INC_FACTOR;
+		free(s->data);
+		s->data = b;
 	}
-	in->size -= STACK_INC_FACTOR;
-	in->data = b;
-	return (1);
+	return (0);
 }
 
 void	stack_set(t_stack *s, int i, int n)
 {
-	s->data[ft_min(ft_max(i, 0), s->data - 1)] = n;
+	s->data[ft_min(ft_max(i, 0), s->len - 1)] = n;
 }
 
 int		stack_get(t_stack *s, int i)
 {
-	return (s->data[ft_min(ft_max(i, 0), s->data - 1)]]);
+	return (s->data[ft_min(ft_max(i, 0), s->len - 1)]);
 }
 
 int		stack_rotate(t_stack *s, int n)
@@ -55,7 +76,10 @@ int		stack_rotate(t_stack *s, int n)
 	int	i;
 
 	if (s->len < 2)
-		return (0);
+	{
+		print_error(ERR_BADLEN);
+		return (1);
+	}
 	i = s->len - 1;
 	if (n > 0)
 	{
@@ -71,5 +95,5 @@ int		stack_rotate(t_stack *s, int n)
 			s->data[i] = s->data[i + 1];
 		s->data[s->len - 1] = b;
 	}
-	return (1);
+	return (0);
 }
