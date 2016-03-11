@@ -23,7 +23,7 @@ static void	read_number(const char **in, va_list argp)
 		tmp++;
 	if (!(ptrdiff_t)(tmp - *in))
 		return ;
-	*va_arg(argp, intmax_t*) = ft_atoi(*in);
+	*va_arg(argp, size_t*) = ft_atoi(*in);
 	ft_printf("%d\n", ft_atoi(*in));
 	*in = tmp;
 	return ;

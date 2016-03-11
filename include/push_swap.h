@@ -34,8 +34,8 @@
 # define O_RRB				10
 # define O_RRR				11
 
-# define A					 1
-# define B					 2
+# define A					 0
+# define B					 1
 # define S					16
 # define R					 S
 

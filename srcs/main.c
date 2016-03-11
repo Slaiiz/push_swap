@@ -52,11 +52,11 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 
 static int	sort_stacks(t_couple *c)
 {
-	if (__push(c, O_PB)
-		|| __push(c, O_PB)
-		|| __push(c, O_PB)
-		|| __push(c, O_PB)
-		|| __push(c, O_PA))
+	if (__push(c, B)
+		|| __push(c, B)
+		|| __push(c, B)
+		|| __push(c, B)
+		|| __push(c, A))
 		return (1);
 	return (0);
 }

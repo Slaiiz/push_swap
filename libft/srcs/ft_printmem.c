@@ -16,10 +16,10 @@ static void	printaddr(void *addr)
 {
 	size_t	len;
 
-	len = 8 - ft_nbrlen((int)addr, 16);
+	len = 8 - ft_nbrlen((size_t)addr, 16);
 	while (len--)
 		ft_putchar('0');
-	ft_putnbr_base((int)addr, 16);
+	ft_putnbr_base((size_t)addr, 16);
 	return ;
 }
 

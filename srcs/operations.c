@@ -40,14 +40,14 @@ int			__swap(t_couple *c, int o)
 	int		n;
 	t_stack	*s;
 
-	if (o == O_SA)
+	if (o & A)
 		s = &c->a;
-	else if (o == O_SB)
+	else if (o & B)
 		s = &c->b;
-	else if (o == O_SS)
+	else if (o == S)
 	{
-		if (__swap(c, O_SA | S)
-			|| __swap(c, O_SB | S)
+		if (__swap(c, A | S)
+			|| __swap(c, B | S)
 			|| register_operation(c, O_SS))
 		{
 			print_error(ERR_SWAPFAIL, 0);
@@ -58,7 +58,7 @@ int			__swap(t_couple *c, int o)
 	if (s->len < 2)
 		return (1);
 	if (!(o & S))
-		if (register_operation(c, o))
+		if (register_operation(c, O_SA + o))
 		{
 			print_error(ERR_SWAPFAIL, 0);
 			return (1);
@@ -75,19 +75,19 @@ int			__push(t_couple *c, int o)
 	t_stack *d;
 	int		 n;
 
-	if (o == O_PA)
+	if (o & A)
 	{
 		s = &c->b;
 		d = &c->a;
 	}
-	else if (o == O_PB)
+	else if (o & B)
 	{
 		s = &c->a;
 		d = &c->b;
 	}
 	if (stack_pop(s, &n)
 		|| stack_push(d, n)
-		|| register_operation(c, o))
+		|| register_operation(c, O_PA + o))
 	{
 		print_error(ERR_PUSHFAIL, 0);
 		return (1);
@@ -99,12 +99,12 @@ int			__rotate(t_couple *c, int o)
 {
 	t_stack	*s;
 
-	if (o == O_PA)
+	if (o & A)
 		s = &c->a;
-	else if (o == O_PB)
+	else if (o & B)
 		s = &c->b;
 	if (stack_rotate(s, FORWARD)
-		|| register_operation(c, o))
+		|| register_operation(c, O_RA + o))
 	{
 		print_error(ERR_ROTATEFAIL, 0);
 		return (1);
@@ -116,12 +116,12 @@ int			__reverse_rotate(t_couple *c, int o)
 {
 	t_stack	*s;
 
-	if (o == A)
+	if (o & A)
 		s = &c->a;
-	else if (o == B)
+	else if (o & B)
 		s = &c->b;
 	if (stack_rotate(s, REVERSE)
-		|| register_operation(c, o))
+		|| register_operation(c, O_RRA + o))
 	{
 		print_error(ERR_REVERSEFAIL, 0);
 		return (1);

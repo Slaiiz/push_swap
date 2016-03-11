@@ -36,6 +36,6 @@ void		print_error(int id, int arg)
 		else
 			ft_printf("  [%d] -> %s\n", level++, errors[id]);
 	}
-	else
+	else if (level++ == 0)
 		ft_printf("#!fd=2^Error\n");
 }
