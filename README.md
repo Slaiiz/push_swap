@@ -10,4 +10,4 @@ TODO:
 * -c  : Color. Combined with -f, give something colorful.
 * -g  : Game. Turn push_swap into a game, try and beat the algorithm!
 
-Compiled from home with the MinGW toolchain, that crap does not implicitly initialize static variables or I must be doing very wrong.
+Compiled from home with the MinGW toolchain, that crap does not implicitly initialize static variables or I must be doing something very wrong.
