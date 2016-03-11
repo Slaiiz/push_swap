@@ -17,7 +17,6 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 	int		n;
 	char	*s;
 
-	ft_bzero(c, sizeof(*c));
 	while (*argc)
 	{
 		s = *(*argv)++;
@@ -26,9 +25,15 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 		while (ft_isdigit(*s))
 			s++;
 		if (*s != '\0')
-			return (ERR_BADARG);
-		if (!stack_push(&c->a, n))
-			return (ERR_PUSHFAIL);
+		{
+			print_error(ERR_BADARG, 0);
+			return (1);
+		}
+		if (stack_push(&c->a, n))
+		{
+			print_error(ERR_PUSHFAIL, 0);
+			return (1);
+		}
 		--*argc;
 	}
 	c->strings[0]  = "SA";
@@ -45,9 +50,9 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 	return (0);
 }
 
-static int	sort_stacks(t_couple *c, int flags)
+static int	sort_stacks(t_couple *c)
 {
-	if (!__push(c, O_PB)
+	if (__push(c, O_PB)
 		|| __push(c, O_PB)
 		|| __push(c, O_PB)
 		|| __push(c, O_PB))
@@ -55,7 +60,7 @@ static int	sort_stacks(t_couple *c, int flags)
 	return (0);
 }
 
-static int	print_stacks(t_couple *c, int flags)
+static int	print_stacks(t_couple *c)
 {
 	int	i;
 
@@ -67,25 +72,26 @@ static int	print_stacks(t_couple *c, int flags)
 	return (0);
 }
 
-static void	parse_flags(int *in, int *argc, char ***argv)
+static void	parse_flags(char *in, int *argc, char ***argv)
 {
 	char	*s;
 
 	while (*argc > 1)
 	{
-		--*argc;
 		s = *(++*argv);
-		if (*s == '-')
+		if (s[0] == '-')
 		{
-			s++;
-			if (*s == 'v')
+			if (s[1] == 'v')
 				*in |= F_VERBOSE;
-			else if (*s == 'c')
+			else if (s[1] == 'c')
 				*in |= F_COLOR;
-			else if (*s == 'g')
+			else if (s[1] == 'g')
 				*in |= F_GAME;
-			else if (*s == 'e')
+			else if (s[1] == 'e')
 				*in |= F_ERRORS;
+			else
+				break ;
+			--*argc;
 			continue ;
 		}
 		break ;
@@ -95,27 +101,25 @@ static void	parse_flags(int *in, int *argc, char ***argv)
 int			main(int argc, char **argv)
 {
 	t_couple	c;
-	int			flags;
 
+	ft_bzero(&c, sizeof(c));
+	parse_flags(&c.flags, &argc, &argv);
+	print_error(INIT_ERRORS, c.flags);
 	if (argc < 2)
 	{
-		ft_printf("#!fd=2^Error\n");
-		print_error(ERR_INVARGS);
+		print_error(ERR_INVARGS, 0);
 		return (1);
 	}
-	parse_flags(&flags, &argc, &argv);
 	if (initialize_stacks(&c, &argc, &argv))
 	{
-		ft_printf("#!fd=2^Error\n");
-		print_error(ERR_INITFAIL);
+		print_error(ERR_INITFAIL, 0);
 		return (1);
 	}
-	if (sort_stacks(&c, flags))
+	if (sort_stacks(&c))
 	{
-		ft_printf("#!fd=2^Error\n");
-		print_error(ERR_SORTFAIL);
+		print_error(ERR_SORTFAIL, 0);
 		return (1);
 	}
-	print_stacks(&c, flags);
+	print_stacks(&c);
 	return (0);
 }

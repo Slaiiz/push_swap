@@ -1,7 +1,7 @@
 CC     =	gcc
 #CFLAGS =	-Wall -Wextra -Werror
 NAME   =	push_swap
-SRCS   =	main.c stack.c operations.c
+SRCS   =	main.c stack.c operations.c errors.c
 
 # -----------------------------
 
@@ -34,6 +34,8 @@ fclean: clean
 
 re: fclean all
 
-renolibft: fclean $(NAME)
+renolibft:
+	rm -f $(NAME);\
+	make $(NAME)
 
 .PHONY: help all clean fclean re

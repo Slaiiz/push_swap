@@ -42,14 +42,17 @@
 # define FORWARD			 1
 # define REVERSE			-1
 
-# define ERR_INVARGS		 1
-# define ERR_INITFAIL		 2
-# define ERR_SORTFAIL		 3
-# define ERR_MALLOC			 4
-# define ERR_PUSHFAIL		 5
-# define ERR_ROTATEFAIL		 6
-# define ERR_REVERSEFAIL	 7
-# define ERR_LENFAIL		 8
+# define ERR_INVARGS		 0
+# define ERR_INITFAIL		 1
+# define ERR_SORTFAIL		 2
+# define ERR_MALLOC			 3
+# define ERR_PUSHFAIL		 4
+# define ERR_ROTATEFAIL		 5
+# define ERR_REVERSEFAIL	 6
+# define ERR_BADLEN			 7
+# define ERR_SWAPFAIL		 8
+# define ERR_BADARG			 9
+# define INIT_ERRORS		10
 
 typedef struct	s_stack
 {
@@ -65,8 +68,11 @@ typedef struct	s_couple
 	int		len;
 	int		size;
 	char	*ops;
+	char	flags;
 	char	*strings[11];
 }				t_couple;
+
+void			print_error(int id, int arg);
 
 int				stack_push(t_stack *s, int n);
 int				stack_pop(t_stack *s, int *n);
