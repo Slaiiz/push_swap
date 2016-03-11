@@ -9,7 +9,7 @@ static void	init_errors(char **out)
 	out[4] = "__push() failed";
 	out[5] = "__rotate() failed";
 	out[6] = "__reverse_rotate() failed";
-	out[7] = "Stack not large enough for rotation";
+	out[7] = "Stack not large enough for action";
 	out[8] = "__swap() failed";
 	out[9] = "Invalid argument syntax";
 }

@@ -17,7 +17,7 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 	int		n;
 	char	*s;
 
-	while (*argc)
+	while (*argc > 1)
 	{
 		s = *(*argv)++;
 		n = ft_atoi(s);
@@ -55,7 +55,8 @@ static int	sort_stacks(t_couple *c)
 	if (__push(c, O_PB)
 		|| __push(c, O_PB)
 		|| __push(c, O_PB)
-		|| __push(c, O_PB))
+		|| __push(c, O_PB)
+		|| __push(c, O_PA))
 		return (1);
 	return (0);
 }
