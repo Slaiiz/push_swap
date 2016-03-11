@@ -16,8 +16,8 @@ static void	init_errors(char **out)
 
 void		print_error(int id, int arg)
 {
-	static int	level;
-	static char	flags;
+	static int	level = 0;
+	static char	flags = 0;
 	static char	*errors[10];
 
 	if (id == INIT_ERRORS)

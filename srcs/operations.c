@@ -57,15 +57,15 @@ int			__swap(t_couple *c, int o)
 	}
 	if (s->len < 2)
 		return (1);
+	n = stack_get(s, c->a.len - 1);
+	stack_set(s, s->len - 1, stack_get(s, s->len - 2));
+	stack_set(s, s->len - 2, n);
 	if (!(o & S))
 		if (register_operation(c, O_SA + o))
 		{
 			print_error(ERR_SWAPFAIL, 0);
 			return (1);
 		}
-	n = stack_get(s, c->a.len - 1);
-	stack_set(s, s->len - 1, stack_get(s, s->len - 2));
-	stack_set(s, s->len - 2, n);
 	return (0);
 }
 
@@ -103,8 +103,18 @@ int			__rotate(t_couple *c, int o)
 		s = &c->a;
 	else if (o & B)
 		s = &c->b;
+	else if (o == R)
+	{
+		if (__rotate(c, A | R)
+			||__rotate(c, B | R)
+			|| register_operation(c, O_RRR))
+		{
+			print_error(ERR_ROTATEFAIL, 0);
+			return (1);
+		}
+	}
 	if (stack_rotate(s, FORWARD)
-		|| register_operation(c, O_RA + o))
+		|| !(o & R) && register_operation(c, O_RA + o))
 	{
 		print_error(ERR_ROTATEFAIL, 0);
 		return (1);
@@ -120,8 +130,18 @@ int			__reverse_rotate(t_couple *c, int o)
 		s = &c->a;
 	else if (o & B)
 		s = &c->b;
+	else if (o == R)
+	{
+		if (__reverse_rotate(c, A | R)
+			|| __reverse_rotate(c, B | R)
+			|| register_operation(c, O_RRR))
+		{
+			print_error(ERR_REVERSEFAIL, 0);
+			return (1);
+		}
+	}
 	if (stack_rotate(s, REVERSE)
-		|| register_operation(c, O_RRA + o))
+		|| !(o & R) && register_operation(c, O_RRA + o))
 	{
 		print_error(ERR_REVERSEFAIL, 0);
 		return (1);

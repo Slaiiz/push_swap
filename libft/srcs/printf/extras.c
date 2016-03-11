@@ -19,7 +19,7 @@
 static char	*get_output_color(const char **in)
 {
 	int			index;
-	static char	*output;
+	static char	*output = NULL;
 	static char	*colors[10];
 
 	if (output == NULL)
@@ -47,7 +47,7 @@ static char	*get_output_color(const char **in)
 
 static char	*get_font_modifier(const char **in)
 {
-	static char	*output;
+	static char	*output = NULL;
 
 	if (output == NULL)
 		output = malloc(sizeof(char) * 25);
