@@ -40,7 +40,7 @@ static int	register_operation(t_couple *c, int o)
 	return (0);
 }
 
-int			__swap(t_couple *c, int o)
+int			swap(t_couple *c, int o)
 {
 	int		n;
 	t_stack	*s;
@@ -51,8 +51,8 @@ int			__swap(t_couple *c, int o)
 		s = &c->b;
 	else if (o == S)
 	{
-		if (__swap(c, A | S)
-			|| __swap(c, B | S)
+		if (swap(c, A | S)
+			|| swap(c, B | S)
 			|| register_operation(c, O_SS))
 		{
 			print_error(ERR_SWAPFAIL, DET_UNDEFINED);
@@ -77,7 +77,7 @@ int			__swap(t_couple *c, int o)
 	return (0);
 }
 
-int			__push(t_couple *c, int o)
+int			push(t_couple *c, int o)
 {
 	t_stack	*s;
 	t_stack *d;
@@ -103,7 +103,7 @@ int			__push(t_couple *c, int o)
 	return (0);
 }
 
-int			__rotate(t_couple *c, int o)
+int			rotate(t_couple *c, int o)
 {
 	t_stack	*s;
 
@@ -113,8 +113,8 @@ int			__rotate(t_couple *c, int o)
 		s = &c->b;
 	else if (o == R)
 	{
-		if (__rotate(c, A | R)
-			||__rotate(c, B | R)
+		if (rotate(c, A | R)
+			|| rotate(c, B | R)
 			|| register_operation(c, O_RR))
 		{
 			print_error(ERR_ROTATEFAIL, DET_UNDEFINED);
@@ -130,7 +130,7 @@ int			__rotate(t_couple *c, int o)
 	return (0);
 }
 
-int			__reverse_rotate(t_couple *c, int o)
+int			reverse_rotate(t_couple *c, int o)
 {
 	t_stack	*s;
 
@@ -140,8 +140,8 @@ int			__reverse_rotate(t_couple *c, int o)
 		s = &c->b;
 	else if (o == R)
 	{
-		if (__reverse_rotate(c, A | R)
-			|| __reverse_rotate(c, B | R)
+		if (reverse_rotate(c, A | R)
+			|| reverse_rotate(c, B | R)
 			|| register_operation(c, O_RRR))
 		{
 			print_error(ERR_REVERSEFAIL, DET_UNDEFINED);

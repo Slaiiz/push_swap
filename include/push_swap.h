@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 17:13:20 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/03/10 16:35:17 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/03/12 15:44:03 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,18 @@
 # define DET_BADLEN			 7
 # define DET_SYNTAX			 9
 
+# define SA		swap(c, A)
+# define SB		swap(c, B)
+# define SS		swap(c, S)
+# define PA		push(c, A)
+# define PB		push(c, B)
+# define RA		rotate(c, A)
+# define RB		rotate(c, B)
+# define RR		rotate(c, R)
+# define RRA	reverse_rotate(c, A)
+# define RRB	reverse_rotate(c, B)
+# define RRR	reverse_rotate(c, R)
+
 typedef struct	s_stack
 {
 	int	len;
@@ -67,7 +79,7 @@ typedef struct	s_stack
 	int	*data;
 }				t_stack;
 
-typedef struct s_couple
+typedef struct	s_couple
 {
 	t_stack	a;
 	t_stack	b;
@@ -89,9 +101,9 @@ void			stack_set(t_stack *s, int i, int n);
 int				stack_get(t_stack *s, int i);
 int				stack_rotate(t_stack *s, int n);
 
-int				__swap(t_couple *c, int o);
-int				__push(t_couple *c, int o);
-int				__rotate(t_couple *c, int o);
-int				__reverse_rotate(t_couple *c, int o);
+int				swap(t_couple *c, int o);
+int				push(t_couple *c, int o);
+int				rotate(t_couple *c, int o);
+int				reverse_rotate(t_couple *c, int o);
 
 #endif

@@ -43,19 +43,11 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 
 static int	sort_stacks(t_couple *c)
 {
-	if (__swap(c, A)
-		|| __push(c, B)
-		|| __push(c, B)
-		|| __push(c, B)
-		|| __rotate(c, A)
-		|| __rotate(c, B)
-		|| __reverse_rotate(c, A)
-		|| __reverse_rotate(c, B)
-		|| __swap(c, A)
-		|| __push(c, A)
-		|| __push(c, A)
-		|| __push(c, A))
+	if (SA || PB || PB || PB || SA || PA || PA || PA)
+	{
+		print_error(ERR_SORTFAIL, DET_UNDEFINED);
 		return (1);
+	}
 	return (0);
 }
 
