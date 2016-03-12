@@ -32,12 +32,12 @@ void	print_snapshot(t_couple *c)
 	int		i;
 	t_stack	*s;
 
-	ft_printf("Stack [{{red}}A{{eoc}}] = { {{cyan}}");
+	ft_printf("  Stack [{{red}}A{{eoc}}] = { {{cyan}}");
 	s = &c->a;
 	i = 0;
 	while (i < s->len)
 		ft_printf("%d ", s->data[i++]);
-	ft_printf("{{eoc}}}\nStack [{{red}}B{{eoc}}] = { {{cyan}}");
+	ft_printf("{{eoc}}}\n  Stack [{{red}}B{{eoc}}] = { {{cyan}}");
 	s = &c->b;
 	i = 0;
 	while (i < s->len)
