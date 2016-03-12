@@ -43,8 +43,5 @@ void	print_operations(t_couple *c)
 	if (i > 0)
 		ft_printf("%s\n", c->strings[c->ops[i] - 1]);
 	if (c->flags & F_VERBOSE)
-	{
-		print_snapshot(c);
 		ft_printf("{{yellow;b}}Total operations: {{eoc}}%lu\n", c->len);
-	}
 }
