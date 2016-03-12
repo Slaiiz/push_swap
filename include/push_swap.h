@@ -21,6 +21,7 @@
 # define F_COLOR			 2
 # define F_GAME				 4
 # define F_ERRORS			 8
+# define F_HELP				16
 
 # define O_SA				 1
 # define O_SB				 2
@@ -97,8 +98,6 @@ void			init_operations(t_couple *c);
 
 int				stack_push(t_stack *s, int n);
 int				stack_pop(t_stack *s, int *n);
-void			stack_set(t_stack *s, int i, int n);
-int				stack_get(t_stack *s, int i);
 int				stack_rotate(t_stack *s, int n);
 
 int				swap(t_couple *c, int o);

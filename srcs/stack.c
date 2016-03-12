@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:35:06 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/03/10 16:35:08 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/03/12 16:35:04 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,6 @@ int		stack_pop(t_stack *s, int *n)
 		s->data = b;
 	}
 	return (0);
-}
-
-void	stack_set(t_stack *s, int i, int n)
-{
-	s->data[ft_min(ft_max(i, 0), s->len - 1)] = n;
-}
-
-int		stack_get(t_stack *s, int i)
-{
-	return (s->data[ft_min(ft_max(i, 0), s->len - 1)]);
 }
 
 int		stack_rotate(t_stack *s, int n)
