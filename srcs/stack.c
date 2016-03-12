@@ -88,3 +88,21 @@ int		stack_rotate(t_stack *s, int n)
 	}
 	return (0);
 }
+
+int		stack_is_ordered(t_stack *s)
+{
+	int	i;
+	int	n;
+
+	i = s->len;
+	if (i < 1)
+		return (0);
+	n = s->data[--i];
+	while (i-- > 0)
+	{
+		if (s->data[i] < n)
+			return (0);
+		n = s->data[i];
+	}
+	return (1);
+}
