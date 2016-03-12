@@ -49,11 +49,13 @@ void	print_operations(t_couple *c)
 {
 	int	i;
 
-	i = 0;
-	while (i < c->len - 1)
-		ft_printf("%s ", c->strings[c->ops[i++] - 1]);
-	if (i > 0)
+	if (c->len > 0)
+	{
+		i = 0;
+		while (i < c->len - 1)
+			ft_printf("%s ", c->strings[c->ops[i++] - 1]);
 		ft_printf("%s\n", c->strings[c->ops[i] - 1]);
+	}
 	if (c->flags & F_VERBOSE)
 		ft_printf("{{yellow;b}}Total operations: {{eoc}}%lu\n", c->len);
 }
