@@ -17,59 +17,44 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 	int		n;
 	char	*s;
 
+	*argv += *argc - 2;
 	while (*argc > 1)
 	{
-		s = *(*argv)++;
+		s = *(*argv)--;
 		n = ft_atoi(s);
 		s += *s == '-';
 		while (ft_isdigit(*s))
 			s++;
 		if (*s != '\0')
 		{
-			print_error(ERR_BADARG, 0);
+			print_error(ERR_INITFAIL, DET_SYNTAX);
 			return (1);
 		}
 		if (stack_push(&c->a, n))
 		{
-			print_error(ERR_PUSHFAIL, 0);
+			print_error(ERR_INITFAIL, DET_UNDEFINED);
 			return (1);
 		}
 		--*argc;
 	}
-	c->strings[0]  = "SA";
-	c->strings[1]  = "SB";
-	c->strings[2]  = "SS";
-	c->strings[3]  = "PA";
-	c->strings[4]  = "PB";
-	c->strings[5]  = "RA";
-	c->strings[6]  = "RB";
-	c->strings[7]  = "RR";
-	c->strings[8]  = "RRA";
-	c->strings[9]  = "RRB";
-	c->strings[10] = "RRR";
 	return (0);
 }
 
 static int	sort_stacks(t_couple *c)
 {
-	if (__push(c, O_PB)
-		|| __push(c, O_PB)
-		|| __push(c, O_PB)
-		|| __push(c, O_PB)
-		|| __push(c, O_PA))
+	if (__swap(c, A)
+		|| __push(c, B)
+		|| __push(c, B)
+		|| __push(c, B)
+		|| __rotate(c, A)
+		|| __rotate(c, B)
+		|| __reverse_rotate(c, A)
+		|| __reverse_rotate(c, B)
+		|| __swap(c, A)
+		|| __push(c, A)
+		|| __push(c, A)
+		|| __push(c, A))
 		return (1);
-	return (0);
-}
-
-static int	print_stacks(t_couple *c)
-{
-	int	i;
-
-	i = 0;
-	while (i < c->len - 1)
-		ft_printf("%s ", c->strings[c->ops[i++] - 1]);
-	if (i > 0)
-		ft_printf("%s\n", c->strings[c->ops[i] - 1]);
 	return (0);
 }
 
@@ -108,19 +93,19 @@ int			main(int argc, char **argv)
 	print_error(INIT_ERRORS, c.flags);
 	if (argc < 2)
 	{
-		print_error(ERR_INVARGS, 0);
+		print_error(ERR_MAIN, DET_INVARG);
 		return (1);
 	}
 	if (initialize_stacks(&c, &argc, &argv))
 	{
-		print_error(ERR_INITFAIL, 0);
+		print_error(ERR_MAIN, DET_UNDEFINED);
 		return (1);
 	}
 	if (sort_stacks(&c))
 	{
-		print_error(ERR_SORTFAIL, 0);
+		print_error(ERR_MAIN, DET_UNDEFINED);
 		return (1);
 	}
-	print_stacks(&c);
+	print_operations(&c);
 	return (0);
 }
