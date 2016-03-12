@@ -1,5 +1,5 @@
 CC     =	gcc
-#CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror
 NAME   =	push_swap
 SRCS   =	main.c stack.c operations.c errors.c print.c
 
