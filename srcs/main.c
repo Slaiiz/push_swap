@@ -37,6 +37,7 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 		}
 		--*argc;
 	}
+	init_operations(c);
 	return (0);
 }
 

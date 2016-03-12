@@ -81,6 +81,7 @@ typedef struct s_couple
 void			print_error(int id, int arg);
 void			print_snapshot(t_couple *c);
 void			print_operations(t_couple *c);
+void			init_operations(t_couple *c);
 
 int				stack_push(t_stack *s, int n);
 int				stack_pop(t_stack *s, int *n);

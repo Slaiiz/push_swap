@@ -1,5 +1,20 @@
 #include "push_swap.h"
 
+void	init_operations(t_couple *c)
+{
+	c->strings[0]  = "sa";
+	c->strings[1]  = "sb";
+	c->strings[2]  = "ss";
+	c->strings[3]  = "pa";
+	c->strings[4]  = "pb";
+	c->strings[5]  = "ra";
+	c->strings[6]  = "rb";
+	c->strings[7]  = "rr";
+	c->strings[8]  = "rra";
+	c->strings[9]  = "rrb";
+	c->strings[10] = "rrr";
+}
+
 void	print_snapshot(t_couple *c)
 {
 	int		i;
@@ -22,17 +37,6 @@ void	print_operations(t_couple *c)
 {
 	int	i;
 
-	c->strings[0]  = "sa";
-	c->strings[1]  = "sb";
-	c->strings[2]  = "ss";
-	c->strings[3]  = "pa";
-	c->strings[4]  = "pb";
-	c->strings[5]  = "ra";
-	c->strings[6]  = "rb";
-	c->strings[7]  = "rr";
-	c->strings[8]  = "rra";
-	c->strings[9]  = "rrb";
-	c->strings[10] = "rrr";
 	i = 0;
 	while (i < c->len - 1)
 		ft_printf("%s ", c->strings[c->ops[i++] - 1]);
