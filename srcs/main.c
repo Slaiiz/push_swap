@@ -43,10 +43,25 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 
 static int	sort_stacks(t_couple *c)
 {
-	if (SA || PB || PB || PB || SA || PA || PA || PA)
+	t_stack	*s;
+	s = &c->a;
+	while (!stack_is_ordered(s))
 	{
-		print_error(ERR_SORTFAIL, DET_UNDEFINED);
-		return (1);
+		if (s->data[s->len - 1] > s->data[s->len - 2])
+		{
+			if (SA)
+			{
+				print_error(ERR_SORTFAIL, DET_UNDEFINED);
+				return (1);
+			}
+		}
+		else if (RRA)
+		{
+			{
+				print_error(ERR_SORTFAIL, DET_UNDEFINED);
+				return (1);
+			}
+		}
 	}
 	return (0);
 }
