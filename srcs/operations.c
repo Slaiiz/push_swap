@@ -32,6 +32,11 @@ static int	register_operation(t_couple *c, int o)
 		c->ops = n;
 	}
 	c->ops[c->len++] = o;
+	if (c->flags & F_VERBOSE)
+	{
+		ft_printf("{{yellow}}Operation: {{eoc}}%s\n", c->strings[o - 1]);
+		print_snapshot(c);
+	}
 	return (0);
 }
 
