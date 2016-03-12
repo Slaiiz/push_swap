@@ -83,7 +83,7 @@ int					ft_printf(const char *format, ...);
 int					ft_expect(const char **s, const char *format, ...);
 size_t				ft_strlen(const char *s);
 size_t				ft_strlcat(char *dst, const char *src, size_t n);
-size_t				ft_nbrlen(int n, int base);
+size_t				ft_nbrlen(size_t n, int base);
 size_t				ft_wstrlen(const wchar_t *s);
 char				*ft_strdup(const char *s1);
 char				*ft_strndup(const char *s1, size_t n);
