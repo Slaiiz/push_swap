@@ -45,14 +45,10 @@ int			swap(t_couple *c, int o)
 	int		n;
 	t_stack	*s;
 
-	if (o & A)
-		s = &c->a;
-	else if (o & B)
-		s = &c->b;
-	else if (o == S)
+	s = o & A ? &c->a : &c->b;
+	if (o == S)
 	{
-		if (swap(c, A | S)
-			|| swap(c, B | S)
+		if (swap(c, A | S) || swap(c, B | S)
 			|| register_operation(c, O_SS))
 		{
 			print_error(ERR_SWAPFAIL, DET_UNDEFINED);
@@ -65,9 +61,9 @@ int			swap(t_couple *c, int o)
 		print_error(ERR_SWAPFAIL, DET_BADLEN);
 		return (1);
 	}
-	n = stack_get(s, s->len - 1);
-	stack_set(s, s->len - 1, stack_get(s, s->len - 2));
-	stack_set(s, s->len - 2, n);
+	n = s->data[s->len - 1];
+	s->data[s->len - 1] = s->data[s->len - 2];
+	s->data[s->len - 2] = n;
 	if (!(o & S))
 		if (register_operation(c, O_SA + o - 1))
 		{
@@ -83,18 +79,9 @@ int			push(t_couple *c, int o)
 	t_stack *d;
 	int		 n;
 
-	if (o & A)
-	{
-		s = &c->b;
-		d = &c->a;
-	}
-	else if (o & B)
-	{
-		s = &c->a;
-		d = &c->b;
-	}
-	if (stack_pop(s, &n)
-		|| stack_push(d, n)
+	s = o & A ? &c->b : &c->a;
+	d = o & A ? &c->a : &c->b;
+	if (stack_pop(s, &n) || stack_push(d, n)
 		|| register_operation(c, O_PA + o - 1))
 	{
 		print_error(ERR_PUSHFAIL, DET_UNDEFINED);
@@ -107,19 +94,16 @@ int			rotate(t_couple *c, int o)
 {
 	t_stack	*s;
 
-	if (o & A)
-		s = &c->a;
-	else if (o & B)
-		s = &c->b;
-	else if (o == R)
+	s = o & A ? &c->a : &c->b;
+	if (o == R)
 	{
-		if (rotate(c, A | R)
-			|| rotate(c, B | R)
+		if (rotate(c, A | R) || rotate(c, B | R)
 			|| register_operation(c, O_RR))
 		{
 			print_error(ERR_ROTATEFAIL, DET_UNDEFINED);
 			return (1);
 		}
+		return (0);
 	}
 	if (stack_rotate(s, FORWARD)
 		|| (!(o & R) && register_operation(c, O_RA + o - 1)))
@@ -134,19 +118,16 @@ int			reverse_rotate(t_couple *c, int o)
 {
 	t_stack	*s;
 
-	if (o & A)
-		s = &c->a;
-	else if (o & B)
-		s = &c->b;
-	else if (o == R)
+	s = o & A ? &c->a : &c->b;
+	if (o == R)
 	{
-		if (reverse_rotate(c, A | R)
-			|| reverse_rotate(c, B | R)
+		if (reverse_rotate(c, A | R) || reverse_rotate(c, B | R)
 			|| register_operation(c, O_RRR))
 		{
 			print_error(ERR_REVERSEFAIL, DET_UNDEFINED);
 			return (1);
 		}
+		return (0);
 	}
 	if (stack_rotate(s, REVERSE)
 		|| (!(o & R) && register_operation(c, O_RRA + o - 1)))
