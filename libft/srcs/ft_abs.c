@@ -17,5 +17,5 @@ int	ft_abs(int n)
 	int	mask;
 
 	mask = n >> (BSIZE_INT - 1);
-	return (n + mask ^ mask);
+	return ((n + mask) ^ mask);
 }
