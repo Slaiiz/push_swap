@@ -8,9 +8,9 @@ int	ft_arrayfind(void *a, int bytesize, int len, size_t n)
 	mask |= (mask + 1);
 	while (len--)
 	{
-		if (!(((size_t*)*a ^ n) & mask))
+		if (!((*(size_t*)a ^ n) & mask))
 			return (len);
-		(char*)*a += bytesize;
+		*((char*)a) += bytesize;
 	}
 	return (-1);
 }
