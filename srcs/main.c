@@ -43,53 +43,39 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 
 static int	sort_stacks(t_couple *c)
 {
-	t_stack	*s;
-	s = &c->a;
-	while (!stack_is_ordered(s))
+	while (!stack_is_ordered(&c->a))
 	{
-		if (s->data[s->len - 1] > s->data[s->len - 2])
-		{
-			if (SA)
-			{
-				print_error(ERR_SORTFAIL, DET_UNDEFINED);
-				return (1);
-			}
-		}
-		else if (RRA)
-		{
-			{
-				print_error(ERR_SORTFAIL, DET_UNDEFINED);
-				return (1);
-			}
-		}
+		check_need_for_low_swap(c);
+		check_need_for_high_swap(c);
 	}
 	return (0);
 }
 
-static void	parse_flags(char *in, int *argc, char ***argv)
+static int	parse_flags(char *in, int *argc, char ***argv)
 {
 	char	*s;
 
-	while (*argc > 1)
+	while (*argc > 1 && (s = *(++*argv)) && s[0] == '-')
 	{
-		s = *(++*argv);
-		if (s[0] == '-')
+		if (s[1] == 'v')
+			*in |= F_VERBOSE;
+		else if (s[1] == 'c')
+			*in |= F_COLOR;
+		else if (s[1] == 'g')
+			*in |= F_GAME;
+		else if (s[1] == 'e')
+			*in |= F_ERRORS;
+		else if (ft_isdigit(s[1]))
+			return (0);
+		else if (*in & F_ERRORS)
 		{
-			if (s[1] == 'v')
-				*in |= F_VERBOSE;
-			else if (s[1] == 'c')
-				*in |= F_COLOR;
-			else if (s[1] == 'g')
-				*in |= F_GAME;
-			else if (s[1] == 'e')
-				*in |= F_ERRORS;
-			else
-				break ;
-			--*argc;
-			continue ;
+			print_error(INIT_ERRORS, F_ERRORS);
+			print_error(ERR_PARSE, DET_BADFLAG);
+			return (1);
 		}
-		break ;
+		--*argc;
 	}
+	return (0);
 }
 
 int			main(int argc, char **argv)
@@ -97,7 +83,11 @@ int			main(int argc, char **argv)
 	t_couple	c;
 
 	ft_bzero(&c, sizeof(c));
-	parse_flags(&c.flags, &argc, &argv);
+	if (parse_flags(&c.flags, &argc, &argv))
+	{
+		print_error(ERR_MAIN, DET_UNDEFINED);
+		return (1);
+	}
 	print_error(INIT_ERRORS, c.flags);
 	if (argc < 2)
 	{
