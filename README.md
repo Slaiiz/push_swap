@@ -9,5 +9,5 @@ FLAGS:
 
 TODO:
 
-* -c  : Color. Combined with -v, give something colorful.
+* -c  : Color. Combined with -v, give some colorful hints about changes in stacks.
 * -g  : Game. Turn push_swap into a game, try and beat the algorithm!
