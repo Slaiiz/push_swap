@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int		stack_push(t_stack *s, int n)
+int	stack_push(t_stack *s, int n)
 {
 	int	*b;
 
@@ -35,7 +35,7 @@ int		stack_push(t_stack *s, int n)
 	return (0);
 }
 
-int		stack_pop(t_stack *s, int *n)
+int	stack_pop(t_stack *s, int *n)
 {
 	int	*b;
 
@@ -45,7 +45,7 @@ int		stack_pop(t_stack *s, int *n)
 		return (1);
 	}
 	*n = s->data[--s->len];
-	if (s->size - s->len >= INC_FACTOR)
+	if ((s->size - s->len) >= INC_FACTOR)
 	{
 		if ((b = malloc(sizeof(int) * (s->size - INC_FACTOR))) == NULL)
 		{
@@ -60,7 +60,7 @@ int		stack_pop(t_stack *s, int *n)
 	return (0);
 }
 
-int		stack_rotate(t_stack *s, int n)
+int	stack_rotate(t_stack *s, int n)
 {
 	int	b;
 	int	i;
@@ -82,27 +82,25 @@ int		stack_rotate(t_stack *s, int n)
 	{
 		b = s->data[0];
 		i = 0;
-		while (i++ < s->len - 1)
+		while (i++ < (s->len - 1))
 			s->data[i - 1] = s->data[i];
 		s->data[s->len - 1] = b;
 	}
 	return (0);
 }
 
-int		stack_is_ordered(t_stack *s)
+int	stack_set(t_stack *s, int i, int n)
 {
-	int	i;
-	int	n;
+	if ((i < 0) || (i > (s->len - 1)))
+		return (1);
+	s->data[i] = n;
+	return (0);
+}
 
-	i = s->len;
-	if (i < 1)
-		return (0);
-	n = s->data[--i];
-	while (i-- > 0)
-	{
-		if (s->data[i] < n)
-			return (0);
-		n = s->data[i];
-	}
-	return (1);
+int	stack_get(t_stack *s, int i, int *n)
+{
+	if ((i < 0) || (i > (s->len - 1)))
+		return (1);
+	*n = s->data[i];
+	return (0);
 }
