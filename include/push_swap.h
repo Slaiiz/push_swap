@@ -76,6 +76,8 @@
 
 typedef struct	s_stack
 {
+	int			min;
+	int			max;
 	int			len;
 	int			size;
 	int			*data;
