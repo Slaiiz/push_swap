@@ -85,6 +85,10 @@ int			push(t_couple *c, int o)
 		print_error(ERR_PUSHFAIL, DET_UNDEFINED);
 		return (1);
 	}
+	if (n < d->min)
+		d->min = n;
+	else if (n > d->max)
+		d->max = n;
 	return (0);
 }
 
