@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static void	init_errors(char **out)
+static void	initialize_errors(char **out)
 {
 	out[0]  = "Invalid/Missing argument(s)";
 	out[1]  = "init_stacks() failed";
@@ -40,7 +40,7 @@ void		print_error(int id, int arg)
 
 	if (id == INIT_ERRORS)
 	{
-		init_errors(errors);
+		initialize_errors(errors);
 		flags = arg;
 		return ;
 	}
