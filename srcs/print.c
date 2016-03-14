@@ -12,7 +12,26 @@
 
 #include "push_swap.h"
 
-void	init_operations(t_couple *c)
+static void	print_change(t_couple *c, int o)
+{
+	if (c->flags & F_COLOR)
+	{
+		if (o == A)
+		{
+			if (c->ops[c->len - 1] == PB)
+				ft_printf("{{red;b}} -");
+			else if (c->ops[c->len - 1] == PA)
+				ft_printf("{{green;b}} +");
+			return ;
+		}
+		if (c->ops[c->len - 1] == PB)
+			ft_printf("{{green;b}} +");
+		else if (c->ops[c->len - 1] == PA)
+			ft_printf("{{red;b}} -");
+	}
+}
+
+void		initialize_operations(t_couple *c)
 {
 	c->strings[0]  = "sa";
 	c->strings[1]  = "sb";
@@ -27,7 +46,7 @@ void	init_operations(t_couple *c)
 	c->strings[10] = "rrr";
 }
 
-void	print_snapshot(t_couple *c)
+void		print_snapshot(t_couple *c)
 {
 	int		i;
 	t_stack	*s;
@@ -37,15 +56,17 @@ void	print_snapshot(t_couple *c)
 	i = 0;
 	while (i < s->len)
 		ft_printf("%d ", s->data[i++]);
+	print_change(c, A);
 	ft_printf("{{eoc}}}\n  Stack [{{red}}B{{eoc}}] = { {{cyan}}");
 	s = &c->b;
 	i = 0;
 	while (i < s->len)
 		ft_printf("%d ", s->data[i++]);
+	print_change(c, B);
 	ft_printf("{{eoc}}}\n");
 }
 
-void	print_operations(t_couple *c)
+void		print_operations(t_couple *c)
 {
 	int	i;
 
