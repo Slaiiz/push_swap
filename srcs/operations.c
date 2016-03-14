@@ -48,8 +48,7 @@ int			swap(t_couple *c, int o)
 	s = o & A ? &c->a : &c->b;
 	if (o == S)
 	{
-		if (swap(c, A | S) || swap(c, B | S)
-			|| register_operation(c, O_SS))
+		if (swap(c, A | S) || swap(c, B | S) || register_operation(c, O_SS))
 		{
 			print_error(ERR_SWAPFAIL, DET_UNDEFINED);
 			return (1);
@@ -64,12 +63,11 @@ int			swap(t_couple *c, int o)
 	n = s->data[s->len - 1];
 	s->data[s->len - 1] = s->data[s->len - 2];
 	s->data[s->len - 2] = n;
-	if (!(o & S))
-		if (register_operation(c, O_SA + o - 1))
-		{
-			print_error(ERR_SWAPFAIL, ERR_REGISTER);
-			return (1);
-		}
+	if (!(o & S) && register_operation(c, O_SA + o - 1))
+	{
+		print_error(ERR_SWAPFAIL, ERR_REGISTER);
+		return (1);
+	}
 	return (0);
 }
 
