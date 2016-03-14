@@ -53,12 +53,14 @@
 # define ERR_REGISTER		11
 # define ERR_OPERATION		12
 # define ERR_MAIN			13
+# define ERR_PARSE			15
 
 # define DET_UNDEFINED		10
 # define DET_INVARG			 0
 # define DET_MALLOC			 3
 # define DET_BADLEN			 7
 # define DET_SYNTAX			 9
+# define DET_BADFLAG		14
 
 # define SA		swap(c, A)
 # define SB		swap(c, B)
@@ -98,7 +100,12 @@ void			init_operations(t_couple *c);
 int				stack_push(t_stack *s, int n);
 int				stack_pop(t_stack *s, int *n);
 int				stack_rotate(t_stack *s, int n);
+int				stack_set(t_stack *s, int i, int n);
+int				stack_get(t_stack *s, int i, int *n);
+
 int				stack_is_ordered(t_stack *s);
+void			check_need_for_low_swap(t_couple *c);
+void			check_need_for_high_swap(t_couple *c);
 
 int				swap(t_couple *c, int o);
 int				push(t_couple *c, int o);
