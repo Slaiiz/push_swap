@@ -28,13 +28,15 @@ static void	init_errors(char **out)
 	out[11] = "Could not register operation";
 	out[12] = "Operation failed";
 	out[13] = "main() failed";
+	out[14] = "Illegal flag";
+	out[15] = "parse_flags() failed";
 }
 
 void		print_error(int id, int arg)
 {
 	static int	level;
 	static char	flags;
-	static char	*errors[14];
+	static char	*errors[16];
 
 	if (id == INIT_ERRORS)
 	{
