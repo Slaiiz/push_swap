@@ -76,20 +76,20 @@
 
 typedef struct	s_stack
 {
-	int	len;
-	int	size;
-	int	*data;
+	int			len;
+	int			size;
+	int			*data;
 }				t_stack;
 
 typedef struct	s_couple
 {
-	t_stack	a;
-	t_stack	b;
-	int		len;
-	int		size;
-	char	*ops;
-	char	flags;
-	char	*strings[11];
+	t_stack		a;
+	t_stack		b;
+	int			len;
+	int			size;
+	char		*ops;
+	char		flags;
+	char		*strings[11];
 }				t_couple;
 
 void			print_error(int id, int arg);
@@ -104,8 +104,8 @@ int				stack_set(t_stack *s, int i, int n);
 int				stack_get(t_stack *s, int i, int *n);
 
 int				stack_is_ordered(t_stack *s);
-void			check_need_for_low_swap(t_couple *c);
-void			check_need_for_high_swap(t_couple *c);
+int				check_need_for_swap(t_couple *c);
+int				force_insertion_into_b(t_couple *c);
 
 int				swap(t_couple *c, int o);
 int				push(t_couple *c, int o);
