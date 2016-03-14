@@ -57,3 +57,28 @@ void		print_error(int id, int arg)
 	else if (level++ == 0)
 		ft_printf("#!fd=2^Error\n");
 }
+
+// int		perform_post_checks(t_couple *c)
+// {
+// 	int	i;
+// 	int	s;
+// 	int	*hits;
+//
+// 	i = c->a.len;
+// 	if ((hits = malloc(sizeof(int) * i) == NULL)
+// 	{
+// 		print_error(ERR_CHECKFAIL, DET_MALLOC);
+// 		return (1);
+// 	}
+// 	ft_bzero(hits, sizeof(int) * i);
+// 	while (i--)
+// 	{
+// 		s = ft_arrayfind(hits, sizeof(int), c->a.len, c->a.data[i]);
+// 		if (s != -1)
+// 		{
+// 			if (hits[s] > 0)
+// 				return (1);
+// 			hits[s]++;
+// 		}
+// 	}
+// }
