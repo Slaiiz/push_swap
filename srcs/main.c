@@ -37,18 +37,26 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 		}
 		--*argc;
 	}
-	init_operations(c);
+	initialize_operations(c);
 	return (0);
 }
 
 static int	sort_stacks(t_couple *c)
 {
-	while (!stack_is_ordered(&c->a))
+	int	error;
+
+	while (1)
 	{
-		check_need_for_low_swap(c);
-		check_need_for_high_swap(c);
+		if (stack_is_ordered(&c->a))
+			return (0);
+		if ((error = check_need_for_swap(c)) == -1)
+			break ;
+		else if (!error)
+			if (force_insertion_into_b(c))
+				break ;
 	}
-	return (0);
+	print_error(ERR_SORTFAIL, DET_UNDEFINED);
+	return (1);
 }
 
 static int	parse_flags(char *in, int *argc, char ***argv)
