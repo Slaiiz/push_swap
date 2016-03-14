@@ -23,7 +23,12 @@ int	check_need_for_swap(t_couple *c)
 	int	b1;
 	int	b2;
 
-	if (c->a.data[c->a.len - 1] > c->a.data[c->a.len - 2])
+	if (c->b.len && c->a.data[c->a.len - 1] > c->b.data[c->b.len - 1])
+	{
+		if (PB)
+			return (-1);
+	}
+	else if (c->a.data[c->a.len - 1] > c->a.data[c->a.len - 2])
 	{
 		if (!stack_get(&c->b, c->b.len - 1, &b1)
 			&& !stack_get(&c->b, c->b.len - 2, &b2) && (b1 < b2))
@@ -53,13 +58,16 @@ int	force_insertion_into_b(t_couple *c)
 	{
 		if (c->b.len && stack_get(&c->b, c->b.len - 1, &n))
 			return (1);
-		if (!c->b.len || (n <= c->a.data[c->a.len - 1]))
+		if (!c->b.len || (n < c->a.data[c->a.len - 1]))
 		{
 			if (PB)
 				return (1);
+			if (c->b.len > 1 && c->b.data[0] > c->b.data[1])
+					if (RRB)
+						return (1);
 			break ;
 		}
-		if (RRB)
+		if (RB)
 			return (1);
 	}
 	return (0);
