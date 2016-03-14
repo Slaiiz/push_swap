@@ -38,32 +38,18 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 		--*argc;
 	}
 	initialize_operations(c);
-	// return(perform_post_checks(c));
 	return (0);
 }
 
 static int	sort_stacks(t_couple *c)
 {
 	int	error;
-	int	sorting;
 
-	sorting = 1;
-	while (sorting)
+	while (1)
 	{
-		if (!c->a.len)
-		{
-			while (c->b.data[0] != c->b.min)
-				RRB;
-			while (c->b.len)
-				if (PA)
-				{
-					sorting = 0;
-					break ;
-				}
-			if (sorting)
-				return (0);
-		}
-		else if ((error = check_need_for_swap(c)) == -1)
+		if (stack_is_ordered(&c->a))
+			return (0);
+		if ((error = check_need_for_swap(c)) == -1)
 			break ;
 		else if (!error)
 			if (force_insertion_into_b(c))
@@ -116,7 +102,12 @@ int			main(int argc, char **argv)
 		print_error(ERR_MAIN, DET_INVARG);
 		return (1);
 	}
-	if (initialize_stacks(&c, &argc, &argv) || sort_stacks(&c))
+	if (initialize_stacks(&c, &argc, &argv))
+	{
+		print_error(ERR_MAIN, DET_UNDEFINED);
+		return (1);
+	}
+	if (sort_stacks(&c))
 	{
 		print_error(ERR_MAIN, DET_UNDEFINED);
 		return (1);
