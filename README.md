@@ -6,8 +6,9 @@ FLAGS:
 
 * -e  : Errors. Print accurate description of errors
 * -v  : (partial) Verbose. Print state of both stacks for each action taken.
+* -c  : Color. Combined with -v, give some colorful hints about changes in stacks.
+* -s  : Statistics. Give a report of what operations have been executed the most.
 
 TODO:
 
-* -c  : Color. Combined with -v, give some colorful hints about changes in stacks.
 * -g  : Game. Turn push_swap into a game, try and beat the algorithm!
