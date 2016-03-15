@@ -38,8 +38,7 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 		--*argc;
 	}
 	initialize_operations(c);
-	// return(perform_post_checks(c));
-	return (0);
+	return(perform_post_checks(c));
 }
 
 static int	sort_stacks(t_couple *c)
@@ -52,7 +51,7 @@ static int	sort_stacks(t_couple *c)
 	{
 		if (!c->a.len)
 		{
-			while (c->b.data[0] != c->b.min)
+			while (c->b.data[0] != c->b.max)
 				RRB;
 			while (c->b.len)
 				if (PA)
@@ -87,12 +86,14 @@ static int	parse_flags(char *in, int *argc, char ***argv)
 			*in |= F_GAME;
 		else if (s[1] == 'e')
 			*in |= F_ERRORS;
+		else if (s[1] == 's')
+			*in |= F_STATS;
 		else if (ft_isdigit(s[1]))
 			return (0);
 		else if (*in & F_ERRORS)
 		{
 			print_error(INIT_ERRORS, F_ERRORS);
-			print_error(ERR_PARSE, DET_BADFLAG);
+			print_error(ERR_PARSEFAIL, DET_BADFLAG);
 			return (1);
 		}
 		--*argc;
@@ -107,18 +108,18 @@ int			main(int argc, char **argv)
 	ft_bzero(&c, sizeof(c));
 	if (parse_flags(&c.flags, &argc, &argv))
 	{
-		print_error(ERR_MAIN, DET_UNDEFINED);
+		print_error(ERR_MAINFAIL, DET_UNDEFINED);
 		return (1);
 	}
 	print_error(INIT_ERRORS, c.flags);
 	if (argc < 2)
 	{
-		print_error(ERR_MAIN, DET_INVARG);
+		print_error(ERR_MAINFAIL, DET_INVARG);
 		return (1);
 	}
 	if (initialize_stacks(&c, &argc, &argv) || sort_stacks(&c))
 	{
-		print_error(ERR_MAIN, DET_UNDEFINED);
+		print_error(ERR_MAINFAIL, DET_UNDEFINED);
 		return (1);
 	}
 	print_operations(&c);

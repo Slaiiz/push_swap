@@ -20,35 +20,22 @@ int	stack_is_ordered(t_stack *s)
 
 int	check_need_for_swap(t_couple *c)
 {
-	int	b1;
-	int	b2;
-
-	if (c->b.len && c->a.data[c->a.len - 1] > c->b.data[c->b.len - 1])
+	if (c->a.len > 1 && c->a.data[c->a.len - 1] > c->a.data[c->a.len - 2])
 	{
-		if (PB)
-			return (-1);
-	}
-	else if (c->a.data[c->a.len - 1] > c->a.data[c->a.len - 2])
-	{
-		if (!stack_get(&c->b, c->b.len - 1, &b1)
-			&& !stack_get(&c->b, c->b.len - 2, &b2) && (b1 < b2))
+		if (c->b.len > 1 && c->b.data[c->b.len - 1] < c->b.data[c->b.len - 2])
 		{
 			if (SS)
-				return (-1);
+				return (1);
 		}
 		else if (SA)
-			return (-1);
-		return (1);
+			return (1);
 	}
-	else if (!stack_get(&c->b, c->b.len - 1, &b1)
-		&& !stack_get(&c->b, c->b.len - 2, &b2) && (b1 < b2))
-	{
+	else if (c->b.len > 1 && c->b.data[c->b.len - 1] < c->b.data[c->b.len - 2])
 		if (SB)
-			return (-1);
-		return (1);
-	}
+			return (1);
 	return (0);
 }
+
 
 int	force_insertion_into_b(t_couple *c)
 {
