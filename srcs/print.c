@@ -30,7 +30,6 @@ static void	print_averages(t_couple *c)
 		(ft_arraycount(c->ops, 1, c->len, O_RRA)
 		+ ft_arraycount(c->ops, 1, c->len, O_RRB)
 		+ ft_arraycount(c->ops, 1, c->len, O_RRR)) * 100 / c->len);
-	ft_printf("%d\n", ft_arraycount(c->ops, 1, c->len, O_PB));
 }
 
 static void	print_change(t_couple *c, int o)
