@@ -91,6 +91,10 @@ int	stack_rotate(t_stack *s, int n)
 
 int	stack_set(t_stack *s, int i, int n)
 {
+	if (i == FIRST)
+		i = 0;
+	else if (i == LAST)
+		i = s->len - 1;
 	if ((i < 0) || (i > (s->len - 1)))
 		return (1);
 	s->data[i] = n;
@@ -99,6 +103,10 @@ int	stack_set(t_stack *s, int i, int n)
 
 int	stack_get(t_stack *s, int i, int *n)
 {
+	if (i == FIRST)
+		i = 0;
+	else if (i == LAST)
+		i = s->len - 1;
 	if ((i < 0) || (i > (s->len - 1)))
 		return (1);
 	*n = s->data[i];
