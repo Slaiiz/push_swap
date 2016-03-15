@@ -21,6 +21,7 @@
 # define F_COLOR			 2
 # define F_GAME				 4
 # define F_ERRORS			 8
+# define F_STATS			16
 
 # define O_SA				 1
 # define O_SB				 2
@@ -52,8 +53,9 @@
 # define ERR_SWAPFAIL		 8
 # define ERR_REGISTER		11
 # define ERR_OPERATION		12
-# define ERR_MAIN			13
-# define ERR_PARSE			15
+# define ERR_MAINFAIL		13
+# define ERR_PARSEFAIL		15
+# define ERR_CHECKFAIL		16
 
 # define DET_UNDEFINED		10
 # define DET_INVARG			 0
@@ -61,6 +63,10 @@
 # define DET_BADLEN			 7
 # define DET_SYNTAX			 9
 # define DET_BADFLAG		14
+# define DET_DOUBLE			17
+
+# define FIRST				-1
+# define LAST				-2
 
 # define SA		swap(c, A)
 # define SB		swap(c, B)
@@ -76,7 +82,6 @@
 
 typedef struct	s_stack
 {
-	int			min;
 	int			max;
 	int			len;
 	int			size;
@@ -98,6 +103,7 @@ void			print_error(int id, int arg);
 void			print_snapshot(t_couple *c);
 void			print_operations(t_couple *c);
 void			initialize_operations(t_couple *c);
+int				perform_post_checks(t_couple *c);
 
 int				stack_push(t_stack *s, int n);
 int				stack_pop(t_stack *s, int *n);
