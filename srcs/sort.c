@@ -15,7 +15,8 @@ static int	check_swap(t_couple *c)
 
 static int	check_rotation(t_couple *c)
 {
-	while (c->b.len > 1 && (c->b.data[c->b.len - 1] > c->a.data[c->a.len - 1]))
+	while (c->b.len > 1 && (c->b.data[c->b.len - 1] != c->b.min)
+		&& (c->b.data[c->b.len - 1] > c->a.data[c->a.len - 1]))
 	{
 		if (RB)
 		{
@@ -35,7 +36,8 @@ int			send_all_to_b(t_couple *c)
 			print_error(ERR_SENDALL, DET_UNDEFINED);
 			return (1);
 		}
-		while (c->b.len > 1 && (c->b.data[0] < c->a.data[c->a.len - 1])
+		while (c->b.len > 1 && (c->b.data[c->b.len - 1] != c->b.max)
+			&& (c->b.data[0] < c->a.data[c->a.len - 1])
 			&& (c->b.data[0] > c->b.data[c->b.len - 1]))
 		{
 			if (RRB)
