@@ -43,33 +43,12 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 
 static int	sort_stacks(t_couple *c)
 {
-	int	error;
-	int	sorting;
-
-	sorting = 1;
-	while (sorting)
+	if (send_all_to_b(c) || retrieve_all_from_b(c))
 	{
-		if (!c->a.len)
-		{
-			while (c->b.data[0] != c->b.max)
-				RRB;
-			while (c->b.len)
-				if (PA)
-				{
-					sorting = 0;
-					break ;
-				}
-			if (sorting)
-				return (0);
-		}
-		else if ((error = check_need_for_swap(c)) == -1)
-			break ;
-		else if (!error)
-			if (force_insertion_into_b(c))
-				break ;
+		print_error(ERR_SORTFAIL, DET_UNDEFINED);
+		return (1);
 	}
-	print_error(ERR_SORTFAIL, DET_UNDEFINED);
-	return (1);
+	return (0);
 }
 
 static int	parse_flags(char *in, int *argc, char ***argv)
