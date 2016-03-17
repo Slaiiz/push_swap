@@ -14,9 +14,9 @@
 # define LIBFT_H
 
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
 # include <stddef.h>
+# include <limits.h>
 # include "printf/ft_printf.h"
 
 # define BSIZE_INT			(8 * sizeof(int))
