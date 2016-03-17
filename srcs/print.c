@@ -42,12 +42,20 @@ static void	print_change(t_couple *c, int o)
 				ft_printf("{{red;b}}- ");
 			else if (c->ops[c->len - 1] == O_PA)
 				ft_printf("{{green;b}}+ ");
+			else if (c->ops[c->len - 1] == O_RA)
+				ft_printf("{{magenta;b}}>");
+			else if (c->ops[c->len - 1] == O_RRA)
+				ft_printf("{{magenta;b}}<");
 			return ;
 		}
 		if (c->ops[c->len - 1] == O_PB)
 			ft_printf("{{green;b}}+ ");
 		else if (c->ops[c->len - 1] == O_PA)
 			ft_printf("{{red;b}}- ");
+		else if (c->ops[c->len - 1] == O_RB)
+			ft_printf("{{magenta;b}}>");
+		else if (c->ops[c->len - 1] == O_RRB)
+			ft_printf("{{magenta;b}}<");
 	}
 }
 
@@ -97,7 +105,7 @@ void		print_operations(t_couple *c)
 			ft_printf("%s ", c->strings[c->ops[i++] - 1]);
 		ft_printf("%s\n", c->strings[c->ops[i] - 1]);
 	}
-	if (c->flags & F_STATS)
+	if (c->flags & F_STATS && c->len)
 		print_averages(c);
 	if (c->flags & F_VERBOSE)
 		ft_printf("{{yellow;b}}Total operations: {{eoc}}%lu\n", c->len);
