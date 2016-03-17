@@ -17,8 +17,8 @@ static void	print_averages(t_couple *c)
 	ft_printf("{{yellow;b}}Average operation usage:\n");
 	ft_printf("{{eoc;}}sa/sb/ss:    {{green;b}}%3d%%\n",
 		(ft_arraycount(c->ops, 1, c->len, O_SA)
-		+ ft_arraycount(c->ops, 2, c->len, O_SB)
-		+ ft_arraycount(c->ops, 4, c->len, O_SS)) * 100 / c->len);
+		+ ft_arraycount(c->ops, 1, c->len, O_SB)
+		+ ft_arraycount(c->ops, 1, c->len, O_SS)) * 100 / c->len);
 	ft_printf("{{eoc;}}pa/pb:       {{green;b}}%3d%%\n",
 		(ft_arraycount(c->ops, 1, c->len, O_PA)
 		+ ft_arraycount(c->ops, 1, c->len, O_PB)) * 100 / c->len);
@@ -43,9 +43,9 @@ static void	print_change(t_couple *c, int o)
 			else if (c->ops[c->len - 1] == O_PA)
 				ft_printf("{{green;b}}+ ");
 			else if (c->ops[c->len - 1] == O_RA)
-				ft_printf("{{magenta;b}}>");
+				ft_printf("{{magenta;b}}> ");
 			else if (c->ops[c->len - 1] == O_RRA)
-				ft_printf("{{magenta;b}}<");
+				ft_printf("{{magenta;b}}< ");
 			return ;
 		}
 		if (c->ops[c->len - 1] == O_PB)
@@ -53,9 +53,9 @@ static void	print_change(t_couple *c, int o)
 		else if (c->ops[c->len - 1] == O_PA)
 			ft_printf("{{red;b}}- ");
 		else if (c->ops[c->len - 1] == O_RB)
-			ft_printf("{{magenta;b}}>");
+			ft_printf("{{magenta;b}}> ");
 		else if (c->ops[c->len - 1] == O_RRB)
-			ft_printf("{{magenta;b}}<");
+			ft_printf("{{magenta;b}}< ");
 	}
 }
 
