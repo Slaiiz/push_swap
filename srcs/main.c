@@ -43,6 +43,8 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 
 static int	sort_stacks(t_couple *c)
 {
+	c->b.min = INT_MAX;
+	c->b.max = INT_MIN;
 	if (send_all_to_b(c) || retrieve_all_from_b(c))
 	{
 		print_error(ERR_SORTFAIL, DET_UNDEFINED);
