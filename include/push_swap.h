@@ -15,35 +15,35 @@
 
 # include "libft.h"
 
-# define INC_FACTOR			 8
+# define INC_FACTOR				 8
 
-# define F_VERBOSE			 1
-# define F_COLOR			 2
-# define F_GAME				 4
-# define F_ERRORS			 8
-# define F_STATS			16
+# define F_VERBOSE				 1
+# define F_COLOR				 2
+# define F_GAME					 4
+# define F_ERRORS				 8
+# define F_STATS				16
 
-# define O_SA				 1
-# define O_SB				 2
-# define O_SS				 3
-# define O_PA				 4
-# define O_PB				 5
-# define O_RA				 6
-# define O_RB				 7
-# define O_RR				 8
-# define O_RRA				 9
-# define O_RRB				10
-# define O_RRR				11
+# define O_SA					 1
+# define O_SB					 2
+# define O_SS					 3
+# define O_PA					 4
+# define O_PB					 5
+# define O_RA					 6
+# define O_RB					 7
+# define O_RR					 8
+# define O_RRA					 9
+# define O_RRB					10
+# define O_RRR					11
 
-# define A					 1
-# define B					 2
-# define S					16
-# define R					 S
+# define A						 1
+# define B						 2
+# define S						16
+# define R						 S
 
-# define FORWARD			 1
-# define REVERSE			-1
+# define FORWARD				 1
+# define REVERSE				-1
 
-# define INIT_ERRORS		 0
+# define INIT_ERRORS			 0
 
 # define ERR_INITFAIL			 1
 # define ERR_SORTFAIL			 2
@@ -61,16 +61,16 @@
 # define ERR_SENDALL			20
 # define ERR_RETRIEVEALL		21
 
-# define DET_UNDEFINED		10
-# define DET_INVARG			 0
-# define DET_MALLOC			 3
-# define DET_BADLEN			 7
-# define DET_SYNTAX			 9
-# define DET_BADFLAG		14
-# define DET_DOUBLE			17
+# define DET_UNDEFINED			10
+# define DET_INVARG				 0
+# define DET_MALLOC				 3
+# define DET_BADLEN				 7
+# define DET_SYNTAX				 9
+# define DET_BADFLAG			14
+# define DET_DOUBLE				17
 
-# define FIRST				-1
-# define LAST				-2
+# define FIRST					-1
+# define LAST					-2
 
 # define SA		swap(c, A)
 # define SB		swap(c, B)
@@ -86,6 +86,7 @@
 
 typedef struct	s_stack
 {
+	int			min;
 	int			max;
 	int			len;
 	int			size;
