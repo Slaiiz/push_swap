@@ -76,7 +76,7 @@ int		perform_post_checks(t_couple *c)
 		print_error(ERR_POSTCHECKFAIL, DET_MALLOC);
 		return (1);
 	}
-	ft_bzero(hits, sizeof(int) * ( 2 * i));
+	ft_bzero(hits, sizeof(int) * (2 * i));
 	ft_memcpy(hits, c->a.data, sizeof(int) * i);
 	while (i--)
 	{
