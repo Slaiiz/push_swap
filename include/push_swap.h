@@ -45,17 +45,21 @@
 
 # define INIT_ERRORS		 0
 
-# define ERR_INITFAIL		 1
-# define ERR_SORTFAIL		 2
-# define ERR_PUSHFAIL		 4
-# define ERR_ROTATEFAIL		 5
-# define ERR_REVERSEFAIL	 6
-# define ERR_SWAPFAIL		 8
-# define ERR_REGISTER		11
-# define ERR_OPERATION		12
-# define ERR_MAINFAIL		13
-# define ERR_PARSEFAIL		15
-# define ERR_CHECKFAIL		16
+# define ERR_INITFAIL			 1
+# define ERR_SORTFAIL			 2
+# define ERR_PUSHFAIL			 4
+# define ERR_ROTATEFAIL			 5
+# define ERR_REVERSEFAIL		 6
+# define ERR_SWAPFAIL			 8
+# define ERR_REGISTER			11
+# define ERR_OPERATION			12
+# define ERR_MAINFAIL			13
+# define ERR_PARSEFAIL			15
+# define ERR_POSTCHECKFAIL		16
+# define ERR_CHECKSWAPFAIL		18
+# define ERR_CHECKROTATEFAIL	19
+# define ERR_SENDALL			20
+# define ERR_RETRIEVEALL		21
 
 # define DET_UNDEFINED		10
 # define DET_INVARG			 0
@@ -111,13 +115,12 @@ int				stack_rotate(t_stack *s, int n);
 int				stack_set(t_stack *s, int i, int n);
 int				stack_get(t_stack *s, int i, int *n);
 
-int				stack_is_ordered(t_stack *s);
-int				check_need_for_swap(t_couple *c);
-int				force_insertion_into_b(t_couple *c);
-
 int				swap(t_couple *c, int o);
 int				push(t_couple *c, int o);
 int				rotate(t_couple *c, int o);
 int				reverse_rotate(t_couple *c, int o);
+
+int				send_all_to_b(t_couple *c);
+int				retrieve_all_from_b(t_couple *c);
 
 #endif
