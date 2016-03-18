@@ -15,34 +15,35 @@
 static void	initialize_errors(char **out)
 {
 	out[0]  = "Invalid/Missing argument(s)";
-	out[1]  = "init_stacks() failed";
-	out[2]  = "sort_stacks() failed";
-	out[3]  = "malloc() failed";
-	out[4]  = "push() failed";
-	out[5]  = "rotate() failed";
-	out[6]  = "reverse_rotate() failed";
+	out[1]  = "init_stacks()";
+	out[2]  = "sort_stacks()";
+	out[3]  = "malloc()";
+	out[4]  = "push()";
+	out[5]  = "rotate()";
+	out[6]  = "reverse_rotate()";
 	out[7]  = "Stack not large enough for action";
-	out[8]  = "swap() failed";
+	out[8]  = "swap()";
 	out[9]  = "Invalid argument syntax";
 	out[10] = "No details";
 	out[11] = "Could not register operation";
 	out[12] = "Operation failed";
-	out[13] = "main() failed";
+	out[13] = "main()";
 	out[14] = "Illegal flag";
-	out[15] = "parse_flags() failed";
-	out[16] = "perform_post_checks() failed";
+	out[15] = "parse_flags()";
+	out[16] = "perform_post_checks()";
 	out[17] = "Same number appearing more than once";
-	out[18] = "check_swap() failed";
-	out[19] = "check_rotation() failed";
-	out[20] = "send_all_to_b() failed";
-	out[21] = "retrieve_all_from_b() failed";
+	out[18] = "check_swap()";
+	out[19] = "check_rotation()";
+	out[20] = "send_all_to_b()";
+	out[21] = "retrieve_all_from_b()";
+	out[22] = "algorithm_stack_spill()";
 }
 
 void		print_error(int id, int arg)
 {
 	static int	level;
 	static char	flags;
-	static char	*errors[22];
+	static char	*errors[23];
 
 	if (id == INIT_ERRORS)
 	{
@@ -57,7 +58,7 @@ void		print_error(int id, int arg)
 			ft_printf("{{red;b}}WE GOT AN ERROR CAPT'N!!!{{eoc;}}");
 			ft_printf("\nStack trace:\n*");
 		}
-		ft_printf(" [%d] -> {{yellow}}%s{{eoc}} (%s)\n",
+		ft_printf(" [%d] -> {{yellow}}%s failed{{eoc}} (%s)\n",
 			level++, errors[id], errors[arg]);
 	}
 	else if (level++ == 0)
