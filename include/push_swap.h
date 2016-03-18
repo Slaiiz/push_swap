@@ -44,7 +44,6 @@
 # define REVERSE				-1
 
 # define INIT_ERRORS			 0
-
 # define ERR_INITFAIL			 1
 # define ERR_SORTFAIL			 2
 # define ERR_PUSHFAIL			 4
@@ -60,6 +59,7 @@
 # define ERR_CHECKROTATEFAIL	19
 # define ERR_SENDALL			20
 # define ERR_RETRIEVEALL		21
+# define ERR_STACKSPILL			22
 
 # define DET_UNDEFINED			10
 # define DET_INVARG				 0
@@ -121,7 +121,7 @@ int				push(t_couple *c, int o);
 int				rotate(t_couple *c, int o);
 int				reverse_rotate(t_couple *c, int o);
 
-int				send_all_to_b(t_couple *c);
-int				retrieve_all_from_b(t_couple *c);
+int				algorithm_stack_spill(t_couple *c);
+int				algorithm_full_rotate(t_couple *c);
 
 #endif

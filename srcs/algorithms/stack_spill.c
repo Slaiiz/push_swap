@@ -27,7 +27,7 @@ static int	check_rotation(t_couple *c)
 	return (0);
 }
 
-int			send_all_to_b(t_couple *c)
+static int	send_all_to_b(t_couple *c)
 {
 	while (c->a.len)
 	{
@@ -55,7 +55,7 @@ int			send_all_to_b(t_couple *c)
 	return (0);
 }
 
-int			retrieve_all_from_b(t_couple *c)
+static int	retrieve_all_from_b(t_couple *c)
 {
 	while (c->b.len)
 	{
@@ -64,6 +64,18 @@ int			retrieve_all_from_b(t_couple *c)
 			print_error(ERR_RETRIEVEALL, DET_UNDEFINED);
 			return (1);
 		}
+	}
+	return (0);
+}
+
+int			algorithm_stack_spill(t_couple *c)
+{
+	c->b.min = INT_MAX;
+	c->b.max = INT_MIN;
+	if (send_all_to_b(c) || retrieve_all_from_b(c))
+	{
+		print_error(ERR_STACKSPILL, DET_UNDEFINED);
+		return (1);
 	}
 	return (0);
 }
