@@ -69,8 +69,9 @@
 # define DET_BADFLAG			14
 # define DET_DOUBLE				17
 
-# define FIRST					-1
-# define LAST					-2
+# define EQUAL					 0
+# define LESS					-1
+# define GREATER				-2
 
 # define SA		swap(c, A)
 # define SB		swap(c, B)
@@ -115,6 +116,7 @@ int				stack_pop(t_stack *s, int *n);
 int				stack_rotate(t_stack *s, int n);
 int				stack_set(t_stack *s, int i, int n);
 int				stack_get(t_stack *s, int i, int *n);
+int				stack_find(t_stack *s, int n, int arg);
 
 int				swap(t_couple *c, int o);
 int				push(t_couple *c, int o);

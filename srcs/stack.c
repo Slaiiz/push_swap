@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	stack_push(t_stack *s, int n)
+int		stack_push(t_stack *s, int n)
 {
 	int	*b;
 
@@ -35,7 +35,7 @@ int	stack_push(t_stack *s, int n)
 	return (0);
 }
 
-int	stack_pop(t_stack *s, int *n)
+int		stack_pop(t_stack *s, int *n)
 {
 	int	*b;
 
@@ -60,7 +60,7 @@ int	stack_pop(t_stack *s, int *n)
 	return (0);
 }
 
-int	stack_rotate(t_stack *s, int n)
+int		stack_rotate(t_stack *s, int n)
 {
 	int	b;
 	int	i;
@@ -82,9 +82,36 @@ int	stack_rotate(t_stack *s, int n)
 	{
 		b = s->data[0];
 		i = 0;
-		while (i++ < (s->len - 1))
+		while (i++ < s->len - 1)
 			s->data[i - 1] = s->data[i];
 		s->data[s->len - 1] = b;
 	}
 	return (0);
+}
+
+int		stack_find(t_stack *s, int n, int arg)
+{
+	int	i;
+	int	m;
+	int	d;
+
+	if (arg == LESS)
+		m = INT_MIN;
+	else if (arg == GREATER)
+		m = INT_MAX;
+	i = s->len;
+	d = -1;
+	while (i--)
+	{
+		if ((arg == LESS && s->data[i] < n && s->data[i] > m)
+			|| (arg == GREATER && s->data[i] > n && s->data[i] < m)
+			|| (arg == EQUAL && s->data[i] == n))
+		{
+			m = s->data[i];
+			d = i;
+		}
+	}
+	if (d != -1)
+		return (d);
+	return (-1);
 }
