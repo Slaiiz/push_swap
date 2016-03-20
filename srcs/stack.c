@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/10 16:35:06 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/03/12 16:35:04 by vchesnea         ###   ########.fr       */
+/*   Created: 2016/03/20 12:07:31 by vchesnea          #+#    #+#             */
+/*   Updated: 2016/03/20 12:07:37 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	stack_push(t_stack *s, int n)
 		}
 		if (s->data != NULL)
 		{
-			ft_memcpy(b, s->data, s->len);
+			ft_memcpy(b, s->data, sizeof(int) * s->len);
 			free(s->data);
 		}
 		s->size += INC_FACTOR;
@@ -52,9 +52,9 @@ int	stack_pop(t_stack *s, int *n)
 			print_error(ERR_OPERATION, DET_MALLOC);
 			return (1);
 		}
-		ft_memcpy(b, s->data, s->len);
-		s->size -= INC_FACTOR;
+		ft_memcpy(b, s->data, sizeof(int) * s->len);
 		free(s->data);
+		s->size -= INC_FACTOR;
 		s->data = b;
 	}
 	return (0);
@@ -86,29 +86,5 @@ int	stack_rotate(t_stack *s, int n)
 			s->data[i - 1] = s->data[i];
 		s->data[s->len - 1] = b;
 	}
-	return (0);
-}
-
-int	stack_set(t_stack *s, int i, int n)
-{
-	if (i == FIRST)
-		i = 0;
-	else if (i == LAST)
-		i = s->len - 1;
-	if ((i < 0) || (i > (s->len - 1)))
-		return (1);
-	s->data[i] = n;
-	return (0);
-}
-
-int	stack_get(t_stack *s, int i, int *n)
-{
-	if (i == FIRST)
-		i = 0;
-	else if (i == LAST)
-		i = s->len - 1;
-	if ((i < 0) || (i > (s->len - 1)))
-		return (1);
-	*n = s->data[i];
 	return (0);
 }
