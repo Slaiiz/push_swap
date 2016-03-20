@@ -28,7 +28,7 @@ static void	initialize_errors(char **out)
 	out[11] = "Could not register operation";
 	out[12] = "Operation failed";
 	out[13] = "main()";
-	out[14] = "Illegal flag";
+	out[14] = "Unrecognized flag";
 	out[15] = "parse_flags()";
 	out[16] = "perform_post_checks()";
 	out[17] = "Same number appearing more than once";
@@ -66,6 +66,29 @@ void		print_error(int id, int arg)
 		ft_printf("#!fd=2^Error\n");
 }
 
+static void	stack_minmax(t_stack *s)
+{
+	int	i;
+
+	i = s->len;
+	if (i < 1)
+	{
+		s->min = INT_MAX;
+		s->max = INT_MIN;
+		return ;
+	}
+	s->min = INT_MAX;
+	s->max = INT_MIN;
+	while (i--)
+	{
+		if (s->data[i] < s->min)
+			s->min = s->data[i];
+		if (s->data[i] > s->max)
+			s->max = s->data[i];
+	}
+}
+
+
 int			perform_post_checks(t_couple *c)
 {
 	int	i;
@@ -89,5 +112,7 @@ int			perform_post_checks(t_couple *c)
 			return (1);
 		}
 	}
+	stack_minmax(&c->a);
+	stack_minmax(&c->b);
 	return (0);
 }
