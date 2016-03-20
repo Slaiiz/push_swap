@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_spill.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/20 12:07:55 by vchesnea          #+#    #+#             */
+/*   Updated: 2016/03/20 12:07:56 by vchesnea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static int	check_swap(t_couple *c)
@@ -15,14 +27,15 @@ static int	check_swap(t_couple *c)
 
 static int	check_rotation(t_couple *c)
 {
-	while (c->b.len > 1 && (c->b.data[c->b.len - 1] != c->b.min)
-		&& (c->b.data[c->b.len - 1] > c->a.data[c->a.len - 1]))
+	while (c->b.len > 1 && (c->b.data[c->b.len - 1] > c->a.data[c->a.len - 1]))
 	{
 		if (RB)
 		{
 			print_error(ERR_CHECKROTATEFAIL, DET_UNDEFINED);
 			return (1);
 		}
+		if (c->b.data[c->b.len - 1] == c->b.max)
+			break ;
 	}
 	return (0);
 }
