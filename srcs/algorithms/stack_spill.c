@@ -12,59 +12,38 @@
 
 #include "push_swap.h"
 
-static int	check_swap(t_couple *c)
+static void	check_rotation(t_couple *c)
 {
-	if (c->a.len > 1 && (c->a.data[c->a.len - 1] > c->a.data[c->a.len - 2]))
-	{
-		if (SA)
-		{
-			print_error(ERR_CHECKSWAPFAIL, DET_UNDEFINED);
-			return (1);
-		}
-	}
-	return (0);
-}
+	int	i;
 
-static int	check_rotation(t_couple *c)
-{
-	while (c->b.len > 1 && (c->b.data[c->b.len - 1] > c->a.data[c->a.len - 1]))
-	{
-		if (RB)
-		{
-			print_error(ERR_CHECKROTATEFAIL, DET_UNDEFINED);
-			return (1);
-		}
-		if (c->b.data[c->b.len - 1] == c->b.max)
-			break ;
-	}
-	return (0);
+	i = stack_find(&c->b, c->b.max, EQUAL);
+	if (i + 1 < c->b.len / 2 && (i = i + 1))
+		while (i--)
+			RRB;
+	else if ((i = c->b.len - (i + 1)))
+		while (i--)
+			RB;
 }
 
 static int	send_all_to_b(t_couple *c)
 {
+	int	i;
+
 	while (c->a.len)
 	{
-		if (check_swap(c) || check_rotation(c))
+		if (((i = stack_find(&c->b, c->a.data[c->a.len - 1], LESS)) != -1)
+			|| ((i = stack_find(&c->b, c->b.max, EQUAL)) != -1))
 		{
-			print_error(ERR_SENDALL, DET_UNDEFINED);
-			return (1);
+			if (i + 1 < c->b.len / 2 && (i = i + 1))
+				while (i--)
+					RRB;
+			else if ((i = c->b.len - (i + 1)))
+				while (i--)
+					RB;
 		}
-		while (c->b.len > 1 && (c->b.data[c->b.len - 1] != c->b.max)
-			&& (c->b.data[0] < c->a.data[c->a.len - 1])
-			&& (c->b.data[0] > c->b.data[c->b.len - 1]))
-		{
-			if (RRB)
-			{
-				print_error(ERR_SENDALL, DET_UNDEFINED);
-				return (1);
-			}
-		}
-		if (PB)
-		{
-			print_error(ERR_SENDALL, DET_UNDEFINED);
-			return (1);
-		}
+		PB;
 	}
+	check_rotation(c);
 	return (0);
 }
 
@@ -83,8 +62,6 @@ static int	retrieve_all_from_b(t_couple *c)
 
 int			algorithm_stack_spill(t_couple *c)
 {
-	c->b.min = INT_MAX;
-	c->b.max = INT_MIN;
 	if (send_all_to_b(c) || retrieve_all_from_b(c))
 	{
 		print_error(ERR_STACKSPILL, DET_UNDEFINED);
