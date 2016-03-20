@@ -6,7 +6,7 @@
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 16:34:48 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/03/12 16:34:50 by vchesnea         ###   ########.fr       */
+/*   Updated: 2016/03/20 12:05:47 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static void	initialize_errors(char **out)
 {
-	out[0]  = "Invalid/Missing argument(s)";
-	out[1]  = "init_stacks()";
-	out[2]  = "sort_stacks()";
-	out[3]  = "malloc()";
-	out[4]  = "push()";
-	out[5]  = "rotate()";
-	out[6]  = "reverse_rotate()";
-	out[7]  = "Stack not large enough for action";
-	out[8]  = "swap()";
-	out[9]  = "Invalid argument syntax";
+	out[0] = "Invalid/Missing argument(s)";
+	out[1] = "init_stacks()";
+	out[2] = "sort_stacks()";
+	out[3] = "malloc()";
+	out[4] = "push()";
+	out[5] = "rotate()";
+	out[6] = "reverse_rotate()";
+	out[7] = "Stack not large enough for action";
+	out[8] = "swap()";
+	out[9] = "Invalid argument syntax";
 	out[10] = "No details";
 	out[11] = "Could not register operation";
 	out[12] = "Operation failed";
@@ -58,14 +58,15 @@ void		print_error(int id, int arg)
 			ft_printf("{{red;b}}WE GOT AN ERROR CAPT'N!!!{{eoc;}}");
 			ft_printf("\nStack trace:\n*");
 		}
-		ft_printf(" [%d] -> {{yellow}}%s failed{{eoc}} (%s)\n",
-			level++, errors[id], errors[arg]);
+		ft_printf(" [%d] -> {{yellow}}%s failed{{eoc}}", level++, errors[id]);
+		if (arg != DET_UNDEFINED)
+			ft_printf(" (%s)\n", errors[arg]);
 	}
 	else if (level++ == 0)
 		ft_printf("#!fd=2^Error\n");
 }
 
-int		perform_post_checks(t_couple *c)
+int			perform_post_checks(t_couple *c)
 {
 	int	i;
 	int	s;
@@ -77,19 +78,15 @@ int		perform_post_checks(t_couple *c)
 		print_error(ERR_POSTCHECKFAIL, DET_MALLOC);
 		return (1);
 	}
-	ft_bzero(hits, sizeof(int) * (2 * i));
+	ft_bzero(hits + i, sizeof(int) * i);
 	ft_memcpy(hits, c->a.data, sizeof(int) * i);
 	while (i--)
 	{
 		s = ft_arrayfind(hits, sizeof(int), c->a.len, c->a.data[i]);
-		if (s != -1)
+		if (hits[s + c->a.len]++ > 0)
 		{
-			if (hits[s + c->a.len] > 0)
-			{
-				print_error(ERR_POSTCHECKFAIL, DET_DOUBLE);
-				return (1);
-			}
-			hits[s + c->a.len]++;
+			print_error(ERR_POSTCHECKFAIL, DET_DOUBLE);
+			return (1);
 		}
 	}
 	return (0);
