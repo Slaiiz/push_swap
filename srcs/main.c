@@ -43,7 +43,11 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 
 static int	sort_stacks(t_couple *c)
 {
-	algorithm_stack_spill(c);
+	if (algorithm_stack_spill(c))
+	{
+		print_error(ERR_SORTFAIL, DET_UNDEFINED);
+		return (1);
+	}
 	return (0);
 }
 
