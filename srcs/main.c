@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/10 16:34:54 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/03/10 16:34:56 by vchesnea         ###   ########.fr       */
+/*   Created: 2016/03/20 12:05:54 by vchesnea          #+#    #+#             */
+/*   Updated: 2016/03/20 12:06:05 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,12 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 		--*argc;
 	}
 	initialize_operations(c);
-	return(perform_post_checks(c));
+	return (perform_post_checks(c));
 }
 
 static int	sort_stacks(t_couple *c)
 {
-//	algorithm_stack_spill(c);
-	algorithm_full_rotate(c);
+	algorithm_stack_spill(c);
 	return (0);
 }
 

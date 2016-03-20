@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/12 16:34:58 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/03/12 16:34:59 by vchesnea         ###   ########.fr       */
+/*   Created: 2016/03/20 12:07:18 by vchesnea          #+#    #+#             */
+/*   Updated: 2016/03/20 12:07:26 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ static void	print_change(t_couple *c, int o)
 
 void		initialize_operations(t_couple *c)
 {
-	c->strings[0]  = "sa";
-	c->strings[1]  = "sb";
-	c->strings[2]  = "ss";
-	c->strings[3]  = "pa";
-	c->strings[4]  = "pb";
-	c->strings[5]  = "ra";
-	c->strings[6]  = "rb";
-	c->strings[7]  = "rr";
-	c->strings[8]  = "rra";
-	c->strings[9]  = "rrb";
+	c->strings[0] = "sa";
+	c->strings[1] = "sb";
+	c->strings[2] = "ss";
+	c->strings[3] = "pa";
+	c->strings[4] = "pb";
+	c->strings[5] = "ra";
+	c->strings[6] = "rb";
+	c->strings[7] = "rr";
+	c->strings[8] = "rra";
+	c->strings[9] = "rrb";
 	c->strings[10] = "rrr";
 }
 

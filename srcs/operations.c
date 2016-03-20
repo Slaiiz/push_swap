@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/10 16:34:59 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/03/10 16:35:00 by vchesnea         ###   ########.fr       */
+/*   Created: 2016/03/20 12:06:16 by vchesnea          #+#    #+#             */
+/*   Updated: 2016/03/20 12:06:26 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static int	register_operation(t_couple *c, int o)
 
 int			swap(t_couple *c, int o)
 {
-	int		n;
 	t_stack	*s;
 
 	s = o & A ? &c->a : &c->b;
@@ -55,14 +54,9 @@ int			swap(t_couple *c, int o)
 		}
 		return (0);
 	}
-	if (s->len < 2)
-	{
-		print_error(ERR_SWAPFAIL, DET_BADLEN);
-		return (1);
-	}
-	n = s->data[s->len - 1];
-	s->data[s->len - 1] = s->data[s->len - 2];
-	s->data[s->len - 2] = n;
+	s->data[s->len - 1] ^= s->data[s->len - 2];
+	s->data[s->len - 2] ^= s->data[s->len - 1];
+	s->data[s->len - 1] ^= s->data[s->len - 2];
 	if (!(o & S) && register_operation(c, O_SA + o - 1))
 	{
 		print_error(ERR_SWAPFAIL, ERR_REGISTER);
@@ -73,9 +67,9 @@ int			swap(t_couple *c, int o)
 
 int			push(t_couple *c, int o)
 {
+	int		n;
 	t_stack	*s;
-	t_stack *d;
-	int		 n;
+	t_stack	*d;
 
 	s = o & A ? &c->b : &c->a;
 	d = o & A ? &c->a : &c->b;
