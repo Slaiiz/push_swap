@@ -1,3 +1,6 @@
+# HOW TO USE:
+# ./push_swap $(python numbergen.py)
+
 from sys import stdout
 import random
 
