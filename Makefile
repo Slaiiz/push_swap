@@ -1,8 +1,9 @@
 CC         =	gcc
 CFLAGS     =	-Wall -Wextra -Werror
 NAME       =	push_swap
-SRCS       =	main.c stack.c operations.c errors.c print.c
-ALGORITHMS =	stack_spill.c #full_rotate.c
+SRCS       =	main.c stack.c operations.c errors.c print.c ../get_next_line/get_next_line.c
+ALGORITHMS =	full_rotate.c stack_spill.c
+INCLUDE    =	include libft/include get_next_line
 
 # -----------------------------
 
@@ -24,7 +25,7 @@ libft.a:
 
 $(NAME):
 	cd srcs;\
-	$(CC) $(CFLAGS) -o ../$(NAME) -I ../include -I ../libft/includes $(SRCS) $(addprefix algorithms/,$(ALGORITHMS)) ../libft/libft.a
+	$(CC) $(CFLAGS) -o ../$(NAME) $(addprefix -I ../,$(INCLUDE)) $(SRCS) $(addprefix algorithms/,$(ALGORITHMS)) ../libft/libft.a
 
 clean:
 	make -C libft clean
