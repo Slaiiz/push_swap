@@ -12,18 +12,26 @@
 
 #include "push_swap.h"
 
-static void	check_rotation(t_couple *c)
-{
-	int	i;
-
-	i = stack_find(&c->b, c->b.max, EQUAL);
-	if (i + 1 < c->b.len / 2 && (i = i + 1))
-		while (i--)
-			RRB;
-	else if ((i = c->b.len - (i + 1)))
-		while (i--)
-			RB;
-}
+/*
+** Complexity gets roughly logarithmic with this algorithm, while that sounds
+** great, it's not suitable for short stacks, where pushing a to b then the
+** inverse makes up a gigantic overhead (more than 70% of operations)
+** for very little gain. Even then there's just so much overhead in general
+** from this very naive approach.
+**
+** Data sampled with a random number generator:
+** numbers | operations | increase factor
+**      10 |         34 | initial
+**      20 |         97 | x2.8
+**      30 |        164 | x1.69
+**      40 |        272 | x1.65
+**      50 |        447 | x1.64
+**      60 |        611 | x1.36
+**      70 |        753 | x1.23
+**      80 |       1015 | x1.57
+**      90 |       1160 | x1.14
+**     100 |       1468 | x1.26
+*/
 
 static int	send_all_to_b(t_couple *c)
 {
@@ -43,7 +51,13 @@ static int	send_all_to_b(t_couple *c)
 		}
 		PB;
 	}
-	check_rotation(c);
+	i = stack_find(&c->b, c->b.max, EQUAL);
+	if (i + 1 < c->b.len / 2 && (i = i + 1))
+		while (i--)
+			RRB;
+	else if ((i = c->b.len - (i + 1)))
+		while (i--)
+			RB;
 	return (0);
 }
 
