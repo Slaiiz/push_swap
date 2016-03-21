@@ -34,7 +34,7 @@ static void	print_averages(t_couple *c)
 
 static void	print_change(t_couple *c, int o)
 {
-	if (c->flags & F_COLOR)
+	if (c->flags & F_COLOR && c->len)
 	{
 		if (o == A)
 		{
@@ -106,7 +106,8 @@ void		print_operations(t_couple *c)
 		ft_printf("%s\n", c->strings[c->ops[i] - 1]);
 	}
 	if (c->flags & F_STATS && c->len)
+	{
 		print_averages(c);
-	if (c->flags & F_VERBOSE)
 		ft_printf("{{yellow;b}}Total operations: {{eoc}}%lu\n", c->len);
+	}
 }
