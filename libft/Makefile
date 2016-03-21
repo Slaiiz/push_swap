@@ -18,7 +18,7 @@ SRCS      =	ft_atoi.c       	ft_bzero.c     	ft_isalnum.c     	ft_isalpha.c   	f
            	ft_abs.c        	ft_strndup.c   	ft_itoa_base64.c 	ft_strlowcase.c	ft_strupcase.c\
            	ft_strcmpcase.c 	ft_seekstr.c   	ft_expect.c      	ft_wstrlen.c   	ft_uitoa.c\
            	ft_uitoa64.c    	ft_uitoa_base.c	ft_uitoa_base64.c	ft_itoa64.c    	ft_arrayfind.c\
-           	ft_arraycount.c
+           	ft_arraycount.c 	ft_memdup.c
 PRINTF    =	main.c          	extras.c       	display.c        	utilities.c
 SRCSOBJ   =	$(subst .c,.o,$(SRCS))
 PRINTFOBJ:=	$(subst .c,.o,$(PRINTF))
@@ -38,7 +38,7 @@ all: ft_printf.o $(NAME)
 ft_printf.o:
 	mkdir -p objs;\
 	cd srcs/printf;\
-	$(CC) $(CFLAGS) -I ../../includes -I ../../includes/printf -c $(PRINTF);\
+	$(CC) $(CFLAGS) -I ../../include -I ../../include/printf -c $(PRINTF);\
 	mv $(PRINTFOBJ) ../../objs;\
 	cd ../../objs;\
 	ld -r -o ft_printf.o $(PRINTFOBJ);\
@@ -67,7 +67,7 @@ renolibft:
 %.o:
 	@cd srcs;\
 	echo "Compiling $@";\
-	$(CC) $(CFLAGS) -I ../includes -I ../includes/printf -c $(subst .o,.c,$@);\
+	$(CC) $(CFLAGS) -I ../include -I ../include/printf -c $(subst .o,.c,$@);\
 	mv $@ ../objs
 
 .PHONY: help all clean fclean re renolibft
