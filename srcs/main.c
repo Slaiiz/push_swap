@@ -41,13 +41,36 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 	return (perform_post_checks(c));
 }
 
+// static int	initiate_user_interaction(t_couple *c)
+// {
+// }
+
 static int	sort_stacks(t_couple *c)
 {
-	if (algorithm_stack_spill(c))
+	int	len;
+	int	flags;
+	int	*data;
+
+	if (c->flags & F_GAME)
+	{
+		flags = c->flags;
+		c->flags &= ~(F_VERBOSE);
+	}
+	len = c->a.len;
+	if ((data = ft_memdup(c->a.data, 4 * len)) == NULL
+		|| (len <= 6 && algorithm_full_rotate(c))
+		|| (len > 6 && algorithm_stack_spill(c)))
 	{
 		print_error(ERR_SORTFAIL, DET_UNDEFINED);
 		return (1);
 	}
+	if (flags & F_GAME)
+	{
+		flags = c->flags;
+		ft_printf("#!clear^[{{red;b}}Game mode ENABLED{{eoc;}}]\n");
+		// initiate_user_interaction(c);
+	}
+	free(data);
 	return (0);
 }
 
