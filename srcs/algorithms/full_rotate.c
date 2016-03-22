@@ -19,17 +19,6 @@
 ** Stack B is not used here.
 */
 
-static int	stack_is_ordered(t_stack *s)
-{
-	int	i;
-
-	i = s->len;
-	while (i-- > 1)
-		if (s->data[i] > s->data[i - 1])
-			return (0);
-	return (1);
-}
-
 static void	reorder_stack(t_couple *c)
 {
 	int	i;

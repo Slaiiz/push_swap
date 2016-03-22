@@ -18,11 +18,11 @@
 ** inverse makes up a gigantic overhead (more than 70% of operations)
 ** for very little gain. Even then there's just so much overhead in general
 ** from this very naive approach.
-**
+** --------------------------------------------------------------------------
 ** Data sampled with a random number generator:
 ** numbers | operations | increase factor
 **      10 |         34 | initial
-**      20 |         97 | x2.8
+**      20 |         97 | x2.80
 **      30 |        164 | x1.69
 **      40 |        272 | x1.65
 **      50 |        447 | x1.64
