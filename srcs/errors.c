@@ -26,7 +26,7 @@ static void	initialize_errors(char **out)
 	out[9] = "Invalid argument syntax";
 	out[10] = "No details";
 	out[11] = "Could not register operation";
-	out[12] = "Operation failed";
+	out[12] = "Stack operation";
 	out[13] = "main()";
 	out[14] = "Unrecognized flag";
 	out[15] = "parse_flags()";
@@ -56,11 +56,10 @@ void		print_error(int id, int arg)
 		if (level == 0)
 		{
 			ft_printf("{{red;b}}WE GOT AN ERROR CAPT'N!!!{{eoc;}}");
-			ft_printf("\nStack trace:\n*");
+			ft_printf("\nStack trace:\n");
 		}
-		ft_printf(" [%d] -> {{yellow}}%s failed{{eoc}}", level++, errors[id]);
-		if (arg != DET_UNDEFINED)
-			ft_printf(" (%s)\n", errors[arg]);
+		ft_printf("[%d] -> {{yellow}}%s failed{{eoc}} (%s)\n",
+			level++, errors[id], errors[arg]);
 	}
 	else if (level++ == 0)
 		ft_printf("#!fd=2^Error\n");
@@ -87,7 +86,6 @@ static void	stack_minmax(t_stack *s)
 			s->max = s->data[i];
 	}
 }
-
 
 int			perform_post_checks(t_couple *c)
 {
