@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int		stack_push(t_stack *s, int n)
+int	stack_push(t_stack *s, int n)
 {
 	int	*b;
 
@@ -35,7 +35,7 @@ int		stack_push(t_stack *s, int n)
 	return (0);
 }
 
-int		stack_pop(t_stack *s, int *n)
+int	stack_pop(t_stack *s, int *n)
 {
 	int	*b;
 
@@ -60,7 +60,7 @@ int		stack_pop(t_stack *s, int *n)
 	return (0);
 }
 
-int		stack_rotate(t_stack *s, int n)
+int	stack_rotate(t_stack *s, int n)
 {
 	int	b;
 	int	i;
@@ -89,7 +89,7 @@ int		stack_rotate(t_stack *s, int n)
 	return (0);
 }
 
-int		stack_find(t_stack *s, int n, int arg)
+int	stack_find(t_stack *s, int n, int arg)
 {
 	int	i;
 	int	m;
@@ -114,4 +114,15 @@ int		stack_find(t_stack *s, int n, int arg)
 	if (d != -1)
 		return (d);
 	return (-1);
+}
+
+int	stack_is_ordered(t_stack *s)
+{
+	int	i;
+
+	i = s->len;
+	while (i-- > 1)
+		if (s->data[i] > s->data[i - 1])
+			return (0);
+	return (1);
 }

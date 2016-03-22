@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include "libft.h"
+# include "get_next_line.h"
 
 # define INC_FACTOR				 8
 
@@ -117,6 +118,7 @@ int				stack_rotate(t_stack *s, int n);
 int				stack_set(t_stack *s, int i, int n);
 int				stack_get(t_stack *s, int i, int *n);
 int				stack_find(t_stack *s, int n, int arg);
+int				stack_is_ordered(t_stack *s);
 
 int				swap(t_couple *c, int o);
 int				push(t_couple *c, int o);
