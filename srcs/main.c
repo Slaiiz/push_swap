@@ -41,36 +41,58 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 	return (perform_post_checks(c));
 }
 
-// static int	initiate_user_interaction(t_couple *c)
-// {
-// }
+static void	initiate_user_interaction(t_couple *model, t_couple *c)
+{
+	char	*s;
+
+	ft_printf("Here are your stacks:\n");
+	print_snapshot(c);
+	while (1)
+	{
+		ft_printf("Now whaddya' do? (sa sb ss pa pb ra rb rr rra rrb rrr)\n> ");
+		if (get_next_line(0, &s) > 0
+			&& ((!ft_strcmp(s, "sa") && !SA) || (!ft_strcmp(s, "sb") && !SB)
+			|| (!ft_strcmp(s, "ss") && !SS) || (!ft_strcmp(s, "pa") && !PA)
+			|| (!ft_strcmp(s, "pb") && !PB) || (!ft_strcmp(s, "ra") && !RA)
+			|| (!ft_strcmp(s, "rb") && !RB) || (!ft_strcmp(s, "rr") && !RR)
+			|| (!ft_strcmp(s, "rra") && !RRA) || (!ft_strcmp(s, "rrb") && !RRB)
+			|| (!ft_strcmp(s, "rrr") && !RRR)))
+		{
+			free(s);
+			if (c->len > model->len)
+				ft_printf("YOU'VE LOST, SIR! Have a look at my solution:\n");
+			else if (stack_is_ordered(&c->a) && !c->b.len)
+				ft_printf("The victory is yours, well played. My solution:\n");
+			else
+				continue ;
+			break ;
+		}
+	}
+}
 
 static int	sort_stacks(t_couple *c)
 {
-	int	len;
-	int	flags;
-	int	*data;
+	int			len;
+	t_couple	game;
 
 	if (c->flags & F_GAME)
-	{
-		flags = c->flags;
-		c->flags &= ~(F_VERBOSE);
-	}
+		c->flags &= ~F_VERBOSE;
+	ft_memcpy(&game, c, sizeof(*c));
 	len = c->a.len;
-	if ((data = ft_memdup(c->a.data, 4 * len)) == NULL
+	if ((game.a.data = ft_memdup(c->a.data, 4 * len)) == NULL
 		|| (len <= 6 && algorithm_full_rotate(c))
 		|| (len > 6 && algorithm_stack_spill(c)))
 	{
 		print_error(ERR_SORTFAIL, DET_UNDEFINED);
 		return (1);
 	}
-	if (flags & F_GAME)
+	if (c->flags & F_GAME)
 	{
-		flags = c->flags;
+		game.flags = c->flags | F_VERBOSE | F_STATS | F_ERRORS | F_COLOR;
 		ft_printf("#!clear^[{{red;b}}Game mode ENABLED{{eoc;}}]\n");
-		// initiate_user_interaction(c);
+		initiate_user_interaction(c, &game);
 	}
-	free(data);
+	free(game.a.data);
 	return (0);
 }
 
@@ -85,7 +107,7 @@ static int	parse_flags(char *in, int *argc, char ***argv)
 		else if (s[1] == 'c')
 			*in |= F_COLOR;
 		else if (s[1] == 'g')
-			*in |= F_GAME;
+			*in |= F_GAME | F_VERBOSE | F_STATS | F_ERRORS | F_COLOR;
 		else if (s[1] == 'e')
 			*in |= F_ERRORS;
 		else if (s[1] == 's')
