@@ -69,6 +69,7 @@
 # define DET_SYNTAX				 9
 # define DET_BADFLAG			14
 # define DET_DOUBLE				17
+# define DET_OVERFLOW			23
 
 # define EQUAL					 0
 # define LESS					-1
@@ -106,7 +107,7 @@ typedef struct	s_couple
 	char		*strings[11];
 }				t_couple;
 
-void			print_error(int id, int arg);
+int				print_error(int id, int arg);
 void			print_snapshot(t_couple *c);
 void			print_operations(t_couple *c);
 void			initialize_operations(t_couple *c);
@@ -127,5 +128,6 @@ int				reverse_rotate(t_couple *c, int o);
 
 int				algorithm_stack_spill(t_couple *c);
 int				algorithm_full_rotate(t_couple *c);
+int				algorithm_smart_sort(t_couple *c);
 
 #endif

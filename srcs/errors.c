@@ -37,19 +37,20 @@ static void	initialize_errors(char **out)
 	out[20] = "send_all_to_b()";
 	out[21] = "retrieve_all_from_b()";
 	out[22] = "algorithm_stack_spill()";
+	out[23] = "Integer overflow";
 }
 
-void		print_error(int id, int arg)
+int			print_error(int id, int arg)
 {
 	static int	level;
 	static char	flags;
-	static char	*errors[23];
+	static char	*errors[24];
 
 	if (id == INIT_ERRORS)
 	{
 		initialize_errors(errors);
 		flags = arg;
-		return ;
+		return (0);
 	}
 	if (flags & F_ERRORS)
 	{
@@ -63,6 +64,7 @@ void		print_error(int id, int arg)
 	}
 	else if (level++ == 0)
 		ft_printf("#!fd=2^Error\n");
+	return (1);
 }
 
 static void	stack_minmax(t_stack *s)
@@ -95,20 +97,14 @@ int			perform_post_checks(t_couple *c)
 
 	i = c->a.len;
 	if ((hits = malloc(sizeof(int) * (2 * i))) == NULL)
-	{
-		print_error(ERR_POSTCHECKFAIL, DET_MALLOC);
-		return (1);
-	}
+		return (print_error(ERR_POSTCHECKFAIL, DET_MALLOC));
 	ft_bzero(hits + i, sizeof(int) * i);
 	ft_memcpy(hits, c->a.data, sizeof(int) * i);
 	while (i--)
 	{
 		s = ft_arrayfind(hits, sizeof(int), c->a.len, c->a.data[i]);
 		if (hits[s + c->a.len]++ > 0)
-		{
-			print_error(ERR_POSTCHECKFAIL, DET_DOUBLE);
-			return (1);
-		}
+			return (print_error(ERR_POSTCHECKFAIL, DET_DOUBLE));
 	}
 	stack_minmax(&c->a);
 	stack_minmax(&c->b);
