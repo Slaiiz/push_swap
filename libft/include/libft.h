@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/24 10:00:20 by vchesnea          #+#    #+#             */
-/*   Updated: 2016/02/07 17:19:31 by vchesnea         ###   ########.fr       */
+/*   Created: 2016/03/23 14:54:22 by vchesnea          #+#    #+#             */
+/*   Updated: 2016/03/23 14:54:34 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int					ft_printf(const char *format, ...);
 int					ft_expect(const char **s, const char *format, ...);
 int					ft_arrayfind(void *a, int bytesize, int len, size_t n);
 int					ft_arraycount(void *a, int bytesize, int len, size_t n);
+int					ft_parseint(const char *str, int *out);
 size_t				ft_strlen(const char *s);
 size_t				ft_strlcat(char *dst, const char *src, size_t n);
 size_t				ft_nbrlen(size_t n, int base);

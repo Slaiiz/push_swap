@@ -18,7 +18,7 @@ SRCS      =	ft_atoi.c       	ft_bzero.c     	ft_isalnum.c     	ft_isalpha.c   	f
            	ft_abs.c        	ft_strndup.c   	ft_itoa_base64.c 	ft_strlowcase.c	ft_strupcase.c\
            	ft_strcmpcase.c 	ft_seekstr.c   	ft_expect.c      	ft_wstrlen.c   	ft_uitoa.c\
            	ft_uitoa64.c    	ft_uitoa_base.c	ft_uitoa_base64.c	ft_itoa64.c    	ft_arrayfind.c\
-           	ft_arraycount.c 	ft_memdup.c
+           	ft_arraycount.c 	ft_memdup.c    	ft_parseint.c
 PRINTF    =	main.c          	extras.c       	display.c        	utilities.c
 SRCSOBJ   =	$(subst .c,.o,$(SRCS))
 PRINTFOBJ:=	$(subst .c,.o,$(PRINTF))
