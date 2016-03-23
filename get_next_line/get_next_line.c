@@ -85,7 +85,7 @@ static int	retrieve_line(t_linebuffer *buff, char **out, size_t size)
 	return (trim_buffer(buff, trim));
 }
 
-static int	get_linebuffer(const int fd, t_linebuffer *entry, t_linebuffer **out)
+static int	get_buffer(const int fd, t_linebuffer *entry, t_linebuffer **out)
 {
 	t_linebuffer	*new;
 
@@ -115,11 +115,11 @@ static int	get_linebuffer(const int fd, t_linebuffer *entry, t_linebuffer **out)
 
 int			get_next_line(const int fd, char **line)
 {
-	int				error;
+	int					error;
 	t_linebuffer		*buff;
 	static t_linebuffer	entry;
 
-	if (fd < 0 || line == NULL || !get_linebuffer(fd, &entry, &buff))
+	if (fd < 0 || line == NULL || !get_buffer(fd, &entry, &buff))
 		return (-1);
 	*line = NULL;
 	while (!(error = retrieve_line(buff, line, 0)))
