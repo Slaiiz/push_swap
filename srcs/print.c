@@ -108,6 +108,6 @@ void		print_operations(t_couple *c)
 	if (c->flags & F_STATS && c->len)
 	{
 		print_averages(c);
-		ft_printf("{{yellow;b}}Total operations: {{eoc}}%lu\n", c->len);
+		ft_printf("{{yellow;b}}Total operations: {{eoc;}}%lu\n", c->len);
 	}
 }
