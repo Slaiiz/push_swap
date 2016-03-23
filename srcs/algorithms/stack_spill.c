@@ -66,10 +66,7 @@ static int	retrieve_all_from_b(t_couple *c)
 	while (c->b.len)
 	{
 		if (PA)
-		{
-			print_error(ERR_RETRIEVEALL, DET_UNDEFINED);
-			return (1);
-		}
+			return (print_error(ERR_RETRIEVEALL, DET_UNDEFINED));
 	}
 	return (0);
 }
@@ -77,9 +74,6 @@ static int	retrieve_all_from_b(t_couple *c)
 int			algorithm_stack_spill(t_couple *c)
 {
 	if (send_all_to_b(c) || retrieve_all_from_b(c))
-	{
-		print_error(ERR_STACKSPILL, DET_UNDEFINED);
-		return (1);
-	}
+		return (print_error(ERR_STACKSPILL, DET_UNDEFINED));
 	return (0);
 }

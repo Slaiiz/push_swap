@@ -19,10 +19,7 @@ int	stack_push(t_stack *s, int n)
 	if (s->size < (s->len + 1))
 	{
 		if ((b = malloc(sizeof(int) * (s->size + INC_FACTOR))) == NULL)
-		{
-			print_error(ERR_OPERATION, DET_MALLOC);
-			return (1);
-		}
+			return (print_error(ERR_OPERATION, DET_MALLOC));
 		if (s->data != NULL)
 		{
 			ft_memcpy(b, s->data, sizeof(int) * s->len);
@@ -40,18 +37,12 @@ int	stack_pop(t_stack *s, int *n)
 	int	*b;
 
 	if (s->len < 1)
-	{
-		print_error(ERR_OPERATION, DET_BADLEN);
-		return (1);
-	}
+		return (print_error(ERR_OPERATION, DET_BADLEN));
 	*n = s->data[--s->len];
 	if ((s->size - s->len) >= INC_FACTOR)
 	{
 		if ((b = malloc(sizeof(int) * (s->size - INC_FACTOR))) == NULL)
-		{
-			print_error(ERR_OPERATION, DET_MALLOC);
-			return (1);
-		}
+			return (print_error(ERR_OPERATION, DET_MALLOC));
 		ft_memcpy(b, s->data, sizeof(int) * s->len);
 		free(s->data);
 		s->size -= INC_FACTOR;
@@ -66,10 +57,7 @@ int	stack_rotate(t_stack *s, int n)
 	int	i;
 
 	if (s->len < 2)
-	{
-		print_error(ERR_OPERATION, DET_BADLEN);
-		return (1);
-	}
+		return (print_error(ERR_OPERATION, DET_BADLEN));
 	i = s->len - 1;
 	if (n > 0)
 	{

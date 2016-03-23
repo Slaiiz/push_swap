@@ -21,20 +21,15 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 	while (*argc > 1)
 	{
 		s = *(*argv)--;
-		n = ft_atoi(s);
+		if (ft_parseint(s, &n))
+			return (print_error(ERR_INITFAIL, DET_OVERFLOW));
 		s += *s == '-';
 		while (ft_isdigit(*s))
 			s++;
 		if (*s != '\0')
-		{
-			print_error(ERR_INITFAIL, DET_SYNTAX);
-			return (1);
-		}
+			return (print_error(ERR_INITFAIL, DET_SYNTAX));
 		if (stack_push(&c->a, n))
-		{
-			print_error(ERR_INITFAIL, DET_UNDEFINED);
-			return (1);
-		}
+			return (print_error(ERR_INITFAIL, DET_UNDEFINED));
 		--*argc;
 	}
 	initialize_operations(c);
@@ -79,13 +74,10 @@ static int	sort_stacks(t_couple *c)
 		c->flags &= ~F_VERBOSE;
 	ft_memcpy(&game, c, sizeof(*c));
 	len = c->a.len;
-	if ((game.a.data = ft_memdup(c->a.data, 4 * len)) == NULL
+	if (((game.a.data = ft_memdup(c->a.data, 4 * len)) == NULL
 		|| (len <= 6 && algorithm_full_rotate(c))
-		|| (len > 6 && algorithm_stack_spill(c)))
-	{
-		print_error(ERR_SORTFAIL, DET_UNDEFINED);
-		return (1);
-	}
+		|| (len > 6 && algorithm_stack_spill(c))))
+		return (print_error(ERR_SORTFAIL, DET_UNDEFINED));
 	if (c->flags & F_GAME)
 	{
 		game.flags = c->flags | F_VERBOSE | F_STATS | F_ERRORS | F_COLOR;
@@ -117,8 +109,7 @@ static int	parse_flags(char *in, int *argc, char ***argv)
 		else if (*in & F_ERRORS)
 		{
 			print_error(INIT_ERRORS, F_ERRORS);
-			print_error(ERR_PARSEFAIL, DET_BADFLAG);
-			return (1);
+			return (print_error(ERR_PARSEFAIL, DET_BADFLAG));
 		}
 		--*argc;
 	}
@@ -131,21 +122,12 @@ int			main(int argc, char **argv)
 
 	ft_bzero(&c, sizeof(c));
 	if (parse_flags(&c.flags, &argc, &argv))
-	{
-		print_error(ERR_MAINFAIL, DET_UNDEFINED);
-		return (1);
-	}
+		return (print_error(ERR_MAINFAIL, DET_UNDEFINED));
 	print_error(INIT_ERRORS, c.flags);
 	if (argc < 2)
-	{
-		print_error(ERR_MAINFAIL, DET_INVARG);
-		return (1);
-	}
+		return (print_error(ERR_MAINFAIL, DET_INVARG));
 	if (initialize_stacks(&c, &argc, &argv) || sort_stacks(&c))
-	{
-		print_error(ERR_MAINFAIL, DET_UNDEFINED);
-		return (1);
-	}
+		return (print_error(ERR_MAINFAIL, DET_UNDEFINED));
 	print_operations(&c);
 	return (0);
 }
