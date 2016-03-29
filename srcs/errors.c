@@ -12,44 +12,14 @@
 
 #include "push_swap.h"
 
-static void	initialize_errors(char **out)
-{
-	out[0] = "Invalid/Missing argument(s)";
-	out[1] = "init_stacks()";
-	out[2] = "sort_stacks()";
-	out[3] = "malloc()";
-	out[4] = "push()";
-	out[5] = "rotate()";
-	out[6] = "reverse_rotate()";
-	out[7] = "Stack not large enough for action";
-	out[8] = "swap()";
-	out[9] = "Invalid argument syntax";
-	out[10] = "No details";
-	out[11] = "Could not register operation";
-	out[12] = "Stack operation";
-	out[13] = "main()";
-	out[14] = "Unrecognized flag";
-	out[15] = "parse_flags()";
-	out[16] = "perform_post_checks()";
-	out[17] = "Same number appearing more than once";
-	out[18] = "check_swap()";
-	out[19] = "check_rotation()";
-	out[20] = "send_all_to_b()";
-	out[21] = "retrieve_all_from_b()";
-	out[22] = "algorithm_stack_spill()";
-	out[23] = "Integer overflow";
-}
-
-int			print_error(int id, int arg)
+int			print_error(char *error, char *explanation)
 {
 	static int	level;
 	static char	flags;
-	static char	*errors[24];
 
-	if (id == INIT_ERRORS)
+	if (error == INIT_ERRORS)
 	{
-		initialize_errors(errors);
-		flags = arg;
+		flags = (char)explanation;
 		return (0);
 	}
 	if (flags & F_ERRORS)
@@ -60,7 +30,8 @@ int			print_error(int id, int arg)
 			ft_printf("\nStack trace:\n");
 		}
 		ft_printf("[%d] -> {{yellow}}%s failed{{eoc}} (%s)\n",
-			level++, errors[id], errors[arg]);
+			// level++, errors[id], errors[arg]);
+			level++, error, explanation);
 	}
 	else if (level++ == 0)
 		ft_printf("#!fd=2^Error\n");
@@ -97,14 +68,14 @@ int			perform_post_checks(t_couple *c)
 
 	i = c->a.len;
 	if ((hits = malloc(sizeof(int) * (2 * i))) == NULL)
-		return (print_error(ERR_POSTCHECKFAIL, DET_MALLOC));
+		return (print_error(ERR_POSTCHECKFAIL, "Malloc failed"));
 	ft_bzero(hits + i, sizeof(int) * i);
 	ft_memcpy(hits, c->a.data, sizeof(int) * i);
 	while (i--)
 	{
 		s = ft_arrayfind(hits, sizeof(int), c->a.len, c->a.data[i]);
 		if (hits[s + c->a.len]++ > 0)
-			return (print_error(ERR_POSTCHECKFAIL, DET_DOUBLE));
+			return (print_error(ERR_POSTCHECKFAIL, "Duplicate number"));
 	}
 	stack_minmax(&c->a);
 	stack_minmax(&c->b);

@@ -22,14 +22,14 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 	{
 		s = *(*argv)--;
 		if (ft_parseint(s, &n))
-			return (print_error(ERR_INITFAIL, DET_OVERFLOW));
+			return (print_error(ERR_INITFAIL, "integer overflow"));
 		s += *s == '-';
 		while (ft_isdigit(*s))
 			s++;
 		if (*s != '\0')
-			return (print_error(ERR_INITFAIL, DET_SYNTAX));
+			return (print_error(ERR_INITFAIL, "Syntax error"));
 		if (stack_push(&c->a, n))
-			return (print_error(ERR_INITFAIL, DET_UNDEFINED));
+			return (print_error(ERR_INITFAIL, "Undefined"));
 		--*argc;
 	}
 	initialize_operations(c);
@@ -74,10 +74,11 @@ static int	sort_stacks(t_couple *c)
 		c->flags &= ~F_VERBOSE;
 	ft_memcpy(&game, c, sizeof(*c));
 	len = c->a.len;
-	if (((game.a.data = ft_memdup(c->a.data, 4 * len)) == NULL
+	if ((game.a.data = ft_memdup(c->a.data, 4 * len)) == NULL
+		// || algorithm_stash_sort(c)
 		|| (len <= 6 && algorithm_full_rotate(c))
-		|| (len > 6 && algorithm_stack_spill(c))))
-		return (print_error(ERR_SORTFAIL, DET_UNDEFINED));
+		|| (len > 6 && algorithm_stack_spill(c)))
+		return (print_error(ERR_SORTFAIL, "Undefined"));
 	if (c->flags & F_GAME)
 	{
 		game.flags = c->flags | F_VERBOSE | F_STATS | F_ERRORS | F_COLOR;
@@ -88,7 +89,7 @@ static int	sort_stacks(t_couple *c)
 	return (0);
 }
 
-static int	parse_flags(char *in, int *argc, char ***argv)
+static int	parse_flags(size_t *in, int *argc, char ***argv)
 {
 	char	*s;
 
@@ -108,8 +109,8 @@ static int	parse_flags(char *in, int *argc, char ***argv)
 			return (0);
 		else if (*in & F_ERRORS)
 		{
-			print_error(INIT_ERRORS, F_ERRORS);
-			return (print_error(ERR_PARSEFAIL, DET_BADFLAG));
+			print_error(INIT_ERRORS, (char*)F_ERRORS);
+			return (print_error(ERR_PARSEFAIL, "Illegal flag"));
 		}
 		--*argc;
 	}
@@ -122,12 +123,12 @@ int			main(int argc, char **argv)
 
 	ft_bzero(&c, sizeof(c));
 	if (parse_flags(&c.flags, &argc, &argv))
-		return (print_error(ERR_MAINFAIL, DET_UNDEFINED));
-	print_error(INIT_ERRORS, c.flags);
+		return (print_error(ERR_MAINFAIL, "Undefined"));
+	print_error(INIT_ERRORS, (char*)c.flags);
 	if (argc < 2)
-		return (print_error(ERR_MAINFAIL, DET_INVARG));
+		return (print_error(ERR_MAINFAIL, "Missing argument(s)"));
 	if (initialize_stacks(&c, &argc, &argv) || sort_stacks(&c))
-		return (print_error(ERR_MAINFAIL, DET_UNDEFINED));
+		return (print_error(ERR_MAINFAIL, "Undefined"));
 	print_operations(&c);
 	return (0);
 }
