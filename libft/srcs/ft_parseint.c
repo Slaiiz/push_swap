@@ -36,9 +36,8 @@ int	ft_parseint(const char *str, int *out)
 			return (1);
 		number *= 10;
 		check = number + *str++ - '0';
-		if (check < number)
-			if (sign > 0 || check != INT_MIN)
-				return (1);
+		if (check < number && (sign > 0 || check != INT_MIN))
+			return (1);
 		number = check;
 	}
 	*out = number * sign;
