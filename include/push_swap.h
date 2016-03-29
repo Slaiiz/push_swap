@@ -44,32 +44,21 @@
 # define FORWARD				 1
 # define REVERSE				-1
 
-# define INIT_ERRORS			 0
-# define ERR_INITFAIL			 1
-# define ERR_SORTFAIL			 2
-# define ERR_PUSHFAIL			 4
-# define ERR_ROTATEFAIL			 5
-# define ERR_REVERSEFAIL		 6
-# define ERR_SWAPFAIL			 8
-# define ERR_REGISTER			11
-# define ERR_OPERATION			12
-# define ERR_MAINFAIL			13
-# define ERR_PARSEFAIL			15
-# define ERR_POSTCHECKFAIL		16
-# define ERR_CHECKSWAPFAIL		18
-# define ERR_CHECKROTATEFAIL	19
-# define ERR_SENDALL			20
-# define ERR_RETRIEVEALL		21
-# define ERR_STACKSPILL			22
-
-# define DET_UNDEFINED			10
-# define DET_INVARG				 0
-# define DET_MALLOC				 3
-# define DET_BADLEN				 7
-# define DET_SYNTAX				 9
-# define DET_BADFLAG			14
-# define DET_DOUBLE				17
-# define DET_OVERFLOW			23
+# define INIT_ERRORS			 (char*)0
+# define ERR_INITFAIL			 "initialize_stacks()"
+# define ERR_SORTFAIL			 "sort_stacks()"
+# define ERR_PUSHFAIL			 "push()"
+# define ERR_ROTATEFAIL			 "rotate()"
+# define ERR_REVERSEFAIL		 "reverse_rotate()"
+# define ERR_SWAPFAIL			 "swap()"
+# define ERR_REGISTER			 "register_operation()"
+# define ERR_OPERATION			 "Stack operation"
+# define ERR_MAINFAIL			 "main()"
+# define ERR_PARSEFAIL			 "parse_flags()"
+# define ERR_POSTCHECKFAIL		 "perform_post_checks()"
+# define ERR_SENDALL			 "send_all_to_b()"
+# define ERR_RETRIEVEALL		 "retrieve_all_from_b()"
+# define ERR_STACKSPILL			 "stack_spill()"
 
 # define EQUAL					 0
 # define LESS					-1
@@ -103,11 +92,11 @@ typedef struct	s_couple
 	int			len;
 	int			size;
 	char		*ops;
-	char		flags;
+	size_t		flags;
 	char		*strings[11];
 }				t_couple;
 
-int				print_error(int id, int arg);
+int				print_error(char *error, char *explanation);
 void			print_snapshot(t_couple *c);
 void			print_operations(t_couple *c);
 void			initialize_operations(t_couple *c);
@@ -128,6 +117,6 @@ int				reverse_rotate(t_couple *c, int o);
 
 int				algorithm_stack_spill(t_couple *c);
 int				algorithm_full_rotate(t_couple *c);
-int				algorithm_smart_sort(t_couple *c);
+int				algorithm_stash_sort(t_couple *c);
 
 #endif
