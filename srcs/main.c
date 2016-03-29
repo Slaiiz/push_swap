@@ -75,7 +75,6 @@ static int	sort_stacks(t_couple *c)
 	ft_memcpy(&game, c, sizeof(*c));
 	len = c->a.len;
 	if ((game.a.data = ft_memdup(c->a.data, 4 * len)) == NULL
-		// || algorithm_stash_sort(c)
 		|| (len <= 6 && algorithm_full_rotate(c))
 		|| (len > 6 && algorithm_stack_spill(c)))
 		return (print_error(ERR_SORTFAIL, "Undefined"));

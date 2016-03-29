@@ -30,7 +30,6 @@ int			print_error(char *error, char *explanation)
 			ft_printf("\nStack trace:\n");
 		}
 		ft_printf("[%d] -> {{yellow}}%s failed{{eoc}} (%s)\n",
-			// level++, errors[id], errors[arg]);
 			level++, error, explanation);
 	}
 	else if (level++ == 0)
