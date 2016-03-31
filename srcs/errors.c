@@ -41,15 +41,11 @@ static void	stack_minmax(t_stack *s)
 {
 	int	i;
 
-	i = s->len;
-	if (i < 1)
-	{
-		s->min = INT_MAX;
-		s->max = INT_MIN;
-		return ;
-	}
 	s->min = INT_MAX;
 	s->max = INT_MIN;
+	i = s->len;
+	if (i < 1)
+		return ;
 	while (i--)
 	{
 		if (s->data[i] < s->min)
