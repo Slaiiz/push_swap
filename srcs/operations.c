@@ -48,6 +48,8 @@ int			swap(t_couple *c, int o)
 			return (print_error(ERR_SWAPFAIL, "Undefined"));
 		return (0);
 	}
+	if (s->len < 2)
+		return (print_error(ERR_SWAPFAIL, "Stack not large enough"));
 	s->data[s->len - 1] ^= s->data[s->len - 2];
 	s->data[s->len - 2] ^= s->data[s->len - 1];
 	s->data[s->len - 1] ^= s->data[s->len - 2];
