@@ -17,8 +17,8 @@ static int	initialize_stacks(t_couple *c, int *argc, char ***argv)
 	int		n;
 	char	*s;
 
-	*argv += *argc - 2;
-	while (*argc > 1)
+	*argv += *argc - 1;
+	while (*argc)
 	{
 		s = *(*argv)--;
 		if (ft_parseint(s, &n))
@@ -88,39 +88,11 @@ static int	sort_stacks(t_couple *c)
 	return (0);
 }
 
-// static int	parse_flags(size_t *in, int *argc, char ***argv)
-// {
-// 	char	*s;
-//
-// 	while (*argc > 1 && (s = *(++*argv)) && s[0] == '-')
-// 	{
-// 		if (s[1] == 'v')
-// 			*in |= F_VERBOSE;
-// 		else if (s[1] == 'c')
-// 			*in |= F_COLOR;
-// 		else if (s[1] == 'g')
-// 			*in |= F_GAME | F_VERBOSE | F_STATS | F_ERRORS | F_COLOR;
-// 		else if (s[1] == 'e')
-// 			*in |= F_ERRORS;
-// 		else if (s[1] == 's')
-// 			*in |= F_STATS;
-// 		else if (ft_isdigit(s[1]))
-// 			return (0);
-// 		else if (*in & F_ERRORS)
-// 		{
-// 			print_error(INIT_ERRORS, (char*)F_ERRORS);
-// 			return (print_error(ERR_PARSEFAIL, "Illegal flag"));
-// 		}
-// 		--*argc;
-// 	}
-// 	return (0);
-// }
-
 static int	parse_flags(int *argc, char ***argv, size_t *in)
 {
 	char	*args;
 
-	while (*argc && **(++*argv) == '-' && --*argc)
+	while (*argc && --*argc && **(++*argv) == '-')
 	{
 		args = **argv;
 		while (*++args != '\0')
@@ -135,6 +107,8 @@ static int	parse_flags(int *argc, char ***argv, size_t *in)
 				*in |= F_ERRORS;
 			else if (*args == 's')
 				*in |= F_STATS;
+			else if (ft_isdigit(*args))
+				return (0);
 			else
 			{
 				print_error(INIT_ERRORS, (char*)F_ERRORS);
@@ -153,7 +127,7 @@ int			main(int argc, char **argv)
 	if (parse_flags(&argc, &argv, &c.flags))
 		return (print_error(ERR_MAINFAIL, "Undefined"));
 	print_error(INIT_ERRORS, (char*)c.flags);
-	if (argc < 2)
+	if (argc < 1)
 		return (print_error(ERR_MAINFAIL, "Missing argument(s)"));
 	if (initialize_stacks(&c, &argc, &argv) || sort_stacks(&c))
 		return (print_error(ERR_MAINFAIL, "Undefined"));
