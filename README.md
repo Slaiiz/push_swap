@@ -1,6 +1,6 @@
 # push_swap
 
-Syntax: ./push_swap [-e] [-v] [-c] [-s] [-g] n1 [ ... [nn]]
+Syntax: ./push_swap [-evcsg] n1 [ ... [nn]]
 
 FLAGS:
 
